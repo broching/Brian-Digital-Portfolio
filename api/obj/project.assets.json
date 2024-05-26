@@ -467,11 +467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api\\api.csproj",
+      "projectPath": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api.csproj",
       "packagesPath": "C:\\Users\\ykc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api\\obj\\",
+      "outputPath": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
