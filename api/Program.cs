@@ -1,5 +1,7 @@
 using api.data;
+using api.Interface;
 using api.Model;
+using api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -56,7 +58,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 12;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -84,6 +86,7 @@ builder.Services.AddAuthentication(options => {
 });
 
 // Add Interface and repositories here
+builder.Services.AddScoped<ITokenService, TokenService>();
 // builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();
