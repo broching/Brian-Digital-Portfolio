@@ -26,6 +26,8 @@ namespace api.Mappers
             return new CreateAccountResponseDto
             {
                 Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 Token = token,
             };
         }
