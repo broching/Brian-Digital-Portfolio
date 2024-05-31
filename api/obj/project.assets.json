@@ -8403,11 +8403,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "c:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api.csproj",
+      "projectPath": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\api.csproj",
       "packagesPath": "C:\\Users\\ykc\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\obj\\",
+      "outputPath": "C:\\Users\\ykc\\Desktop\\PersonalProjects\\Brian-Digital-Portfolio-Main\\Brian-Digital-Portfolio\\api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -8515,7 +8515,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

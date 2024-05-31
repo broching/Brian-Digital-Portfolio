@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Arguments;
 using api.Dtos.Account.Request;
 using api.Dtos.Account.Response;
 using api.Interface;
 using api.Mappers;
 using api.Migrations;
 using api.Model;
+using api.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,11 +24,13 @@ namespace api.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ITokenService _tokenService;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService)
+        private readonly IAccountRepository _accountRepository;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, IAccountRepository accountRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _accountRepository = accountRepository;
         }
 
         [HttpPost]
@@ -34,30 +39,26 @@ namespace api.Controllers
         {
             // Loop everything in Try Catch clause because many errors can occur
             try
-            {   
+            {
                 // Validate request object
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
                 var user = request.ToUserModelFromCreateAccountRequestDto();
-                var createdUser = await _userManager.CreateAsync(user, request.Password);
-                if (createdUser.Succeeded)
+                var arg = new RegisterUserArgument
                 {
-                    // If created user, assign role to user account
-                    var roleResult = await _userManager.AddToRoleAsync(user, "User");
-                    if (roleResult.Succeeded)
-                    {
-                        // If assign role succeed, create token and return response Dto
-                        var token = _tokenService.CreateToken(user);
-                        return Ok(user.ToCreateAccountResponseDtoFromUserModel(token));
-                    }
-                    else
-                        // If Assign role fail, return error
-                        return BadRequest(roleResult.Errors);
+                    Password = request.Password,
+                    UserModel = user
+                };
+                var createdUser = await _accountRepository.RegisterUserAsync(arg);
+                if (createdUser.GetType() == typeof(User))
+                {
+                    // If assign role succeed, create token and return response Dto
+                    var token = _tokenService.CreateToken(user);
+                    return Ok(user.ToCreateAccountResponseDtoFromUserModel(token));
                 }
-                else
-                // If create user failed, return error
-                    return BadRequest(createdUser.Errors);
+                // bad request 
+                return BadRequest(createdUser);
             }
             catch (Exception e)
             {
@@ -74,23 +75,56 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Get if user exists
-            var user = await _userManager.Users
-            .AsQueryable()
-            .Where(x => x.Email == request.Email)
-            .FirstOrDefaultAsync();
+            var arg = new LoginUserArgument
+            {
+                Email = request.Email,
+                Password = request.Password
+            };
+            var user = await _accountRepository.LoginUserAsync(arg);
 
             if (user == null)
                 return Unauthorized("Invalid Username Or Password");
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
-
-            if (!result.Succeeded)
-                return Unauthorized("Invalid Username Or Password");
-                
             // Since user exists, password matches, return response Dto with Token
             var token = _tokenService.CreateToken(user);
             return Ok(user.ToLoginAccountResponseDtoFromUserModel(token));
+        }
+
+        [HttpGet]
+        [Route("get")]
+        [Authorize]
+        public async Task<IActionResult> GetAllAccount()
+        {
+            // Response is currently a list of User : Identity model
+            var userList = await _accountRepository.GetAllUserAsync();
+            return Ok(userList);
+        }
+
+        [HttpGet]
+        [Route("get/{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetAccountById([FromRoute] string id)
+        {
+            // Response is currently a user : Identity model
+            var userInstance = await _accountRepository.GetUserByIdAsync(id);
+            if (userInstance == null)
+            {
+                return NotFound($"User of ID: {id} not found");
+            }
+            return Ok(userInstance);
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAccount([FromRoute] string id)
+        {
+            var result = await _accountRepository.DeleteAccountByIdAsync(id);
+            if (result == null)
+            {
+                return NotFound($"User of ID: {id} not found");
+            }
+            return Ok($"User of ID: {id} has been deleted");
         }
     }
 }

@@ -89,6 +89,7 @@ builder.Services.AddAuthentication(options => {
 // Add Interface and repositories here
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAchievementRepository, AchievementRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 // builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();
