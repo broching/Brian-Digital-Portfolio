@@ -5,6 +5,8 @@ import Homepage from './Pages/Homepage'
 import LoginPage from './Pages/LoginPage'
 import SkillsPage from './Pages/Skills/SkillsPage'
 import CreateSkillsPage from './Pages/Skills/CreateSkillPage'
+import SkillsListing from './Pages/Skills/SkillsListing'
+import EditSkillPage from './Pages/Skills/EditSkillPage'
 
 
 const router = createBrowserRouter([
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "skills/create",
         element: <CreateSkillsPage />
+      },
+      {
+        path: "skills/listing",
+        element: <SkillsListing />
+      },
+      {
+        path: "skills/edit/:id",
+        element: <EditSkillPage />
       },
     ]
   }

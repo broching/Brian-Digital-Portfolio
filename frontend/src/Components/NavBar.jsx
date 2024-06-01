@@ -64,7 +64,7 @@ function NavBar() {
         },
         {
           name:"List Skills",
-          link:"skills/list",
+          link:"skills/listing",
           icon: <ListAltIcon />,
         },
       ]

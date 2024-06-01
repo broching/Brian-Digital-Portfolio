@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Container, Box, TextField, Button, Typography, Card, CardContent } from '@mui/material';
+import { Container, Box, TextField, Button, Typography, Card, CardContent, CircularProgress } from '@mui/material';
 import emptyDefault from '../../Image/empty-default.jpg';
-import { CreateSkill } from '../../Services/SkillService';
-import { useNavigate } from 'react-router';
-import CreateIcon from '@mui/icons-material/Create'; // Import the pen icon
+import { UpdateSkill, GetSkillById } from '../../Services/SkillService';
+import { useNavigate, useParams } from 'react-router';
+import CreateIcon from '@mui/icons-material/Create';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required').max(25, 'Title must be at most 25 characters'),
     description: Yup.string().required('Description is required').max(2000, 'Description must be at most 2000 characters'),
-    imageFile: Yup.mixed().required("Image is required")
+    imageSrc: Yup.string(),
 });
 
 // Define default image URL
 const defaultImageUrl = emptyDefault;
 
-function CreateSkillsPage() {
+function EditSkillPage() {
+    const { id } = useParams();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await GetSkillById(id);
+                formik.setFieldValue('title', res.data.title)
+                formik.setFieldValue('description', res.data.description)
+                formik.setFieldValue('image', res.data.image)
+                formik.setFieldValue('imageSrc', res.data.imageSrc)
+
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching skill:', error);
+                setLoading(false);
+            }
+        };
+        fetchData()
+    }, [id]);
+
     const formik = useFormik({
         initialValues: {
             title: '',
             description: '',
+            image: '',
+            imageSrc: '',
             imageFile: null,
         },
         validationSchema: validationSchema,
@@ -36,15 +59,25 @@ function CreateSkillsPage() {
         const formData = new FormData();
         formData.append('title', values.title);
         formData.append('description', values.description);
-        formData.append('image', "DefaultName");
+        formData.append('image', values.image);
         formData.append('imageFile', values.imageFile);
-        CreateSkill(formData, navigate);
+        UpdateSkill(id, formData, navigate);
     };
 
     // Function to handle image preview
     const handleImagePreview = (event) => {
         formik.setFieldValue('imageFile', event.currentTarget.files[event.currentTarget.files.length - 1]);
     };
+
+    if (loading) {
+        return (
+            <Container maxWidth="md" sx={{ marginTop: 4 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <CircularProgress />
+                </Box>
+            </Container>
+        );
+    }
 
     return (
         <Container maxWidth="md" sx={{ marginTop: 4 }}>
@@ -54,13 +87,13 @@ function CreateSkillsPage() {
                     onClick={() => navigate("/skills/listing")}
                     sx={{ cursor: 'pointer', mr: 2 }}
                 />
-                <Typography variant="h4">Add Your Skill</Typography>
+                <Typography variant="h4">Update Your Skill</Typography>
             </Box>
             <Card sx={{ boxShadow: 3 }}>
                 <CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Typography variant="h4" align="center" gutterBottom>
-                            Input Your Skill Details
+                            Input Your latest Details
                         </Typography>
                         <CreateIcon /> {/* Pen icon */}
                     </Box>
@@ -117,23 +150,29 @@ function CreateSkillsPage() {
                             {/* Image preview column */}
                             <Box sx={{ width: { xs: '100%', md: '30%' } }}>
                                 {formik.values.imageFile ? (
-                                    <img src={URL.createObjectURL(formik.values.imageFile)} alt="Preview" style={{ width: '100%', marginTop: '10px' }} />
+                                    <img src={URL.createObjectURL(formik.values.imageFile)} alt="Preview"
+                                        style={{ width: '100%', marginTop: '10px' }} />
                                 ) : (
-                                    <img src={defaultImageUrl} alt="Default Preview" style={{ width: '100%', marginTop: '10px' }} />
+                                    <>
+                                        {formik.values.imageSrc ? (
+                                            <img src={formik.values.imageSrc} alt="Retrieved picture" style={{ width: '100%' }} />
+                                        ) : (
+                                            <img src={defaultImageUrl} alt="Default Preview" style={{ width: '100%' }} />
+                                        )}
+                                    </>
                                 )}
                             </Box>
                         </Box>
                         <Box>
                             <Button color="primary" variant="contained" fullWidth type="submit" sx={{ mt: 2 }}>
-                                Create Skill
+                                Update Skill
                             </Button>
                         </Box>
                     </Box>
-
                 </CardContent>
             </Card>
         </Container>
     );
 }
 
-export default CreateSkillsPage;
+export default EditSkillPage;
