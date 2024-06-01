@@ -1,13 +1,18 @@
 using api.data;
 using api.Interface;
 using api.Model;
+using api.Models;
 using api.Repository;
 using api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,9 +95,12 @@ builder.Services.AddAuthentication(options => {
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAchievementRepository, AchievementRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 // builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();
+
+var env = app.Services.GetRequiredService<IWebHostEnvironment>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -101,12 +109,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Image")),
+    RequestPath = "/Image"
+});
+
 app.UseCors(x => x
      .AllowAnyMethod()
      .AllowAnyHeader()
      .AllowCredentials()
       //.WithOrigins("https://localhost:44351))
       .SetIsOriginAllowed(origin => true));
+
 
 app.UseHttpsRedirection();
 
@@ -116,5 +131,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-

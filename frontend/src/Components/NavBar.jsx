@@ -16,15 +16,19 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/useAuth';
 import Divider from '@mui/material/Divider';
+import SideBarAdmin from './SideBarAdmin';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import CategoryIcon from '@mui/icons-material/Category';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import StarIcon from '@mui/icons-material/Star';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+const pages = ['Skills', 'Pricing', 'Blog'];
 function NavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const { user, Logout } = useAuth();
+    const { IsLoggedIn, Logout } = useAuth();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -45,6 +49,47 @@ function NavBar() {
         <AppBar position="static" sx={{ bgcolor: "#383838" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    {IsLoggedIn() && (
+                        <>
+                        <SideBarAdmin 
+  items={[
+    {
+      name:"Skill",
+      icon: <CategoryIcon />,
+      children: [
+        {
+          name:"Create Skill",
+          link:"skills/create",
+          icon: <StarIcon />,
+        },
+        {
+          name:"List Skills",
+          link:"skills/list",
+          icon: <ListAltIcon />,
+        },
+      ]
+    },
+    {
+      name:"Achievement",
+      icon: <AssignmentIcon />,
+      children: [
+        {
+          name:"Create Achievement",
+          link:"achievement/create",
+          icon: <StarIcon />,
+        },
+        {
+          name:"List Achievement",
+          link:"achievment/list",
+          icon: <ListAltIcon />,
+        },
+      ]
+    },
+  ]}
+/>
+
+                        </>
+                    )}
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
                         variant="h6"
@@ -103,7 +148,7 @@ function NavBar() {
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
-                            {!user && (
+                            {!IsLoggedIn() && (
                                 <div>
                                     <Divider />
                                     <MenuItem
@@ -150,7 +195,7 @@ function NavBar() {
                             </Button>
                         ))}
                     </Box>
-                    {user ? (
+                    {IsLoggedIn() ? (
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -175,9 +220,6 @@ function NavBar() {
                             >
                                 <MenuItem component={Link} to="/profile" onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">Profile</Typography>
-                                </MenuItem>
-                                <MenuItem component={Link} to="/dashboard" onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">Dashboard</Typography>
                                 </MenuItem>
                                 <Divider />
                                 <MenuItem onClick={() => { Logout(); handleCloseUserMenu(); }}>

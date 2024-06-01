@@ -80,7 +80,7 @@ export function UserProvider(props) {
     }
 
     const Logout = () => {
-        toast.success(`See you again ${user.firstName}`);
+        toast.success(`See you again ${user?.firstName}`);
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         setUser(null);

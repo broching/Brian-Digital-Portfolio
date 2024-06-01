@@ -9,7 +9,14 @@ import { UserProvider } from "./Context/useAuth";
 
 function App() {
   return (
-    <div className="App">
+    <div 
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+  }}
+    className="App"
+    >
       <UserProvider>
         <ThemeProvider
           theme={theme}

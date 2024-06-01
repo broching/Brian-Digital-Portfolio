@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Model;
+using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace api.data
 
         // init DBSETs
         public DbSet<Achievement> Achievement {get; set; }
+        public DbSet<Skill> Skill {get; set;}
 
         // init User 
         protected override void OnModelCreating(ModelBuilder builder)
