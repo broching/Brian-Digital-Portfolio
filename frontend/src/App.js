@@ -6,16 +6,17 @@ import Footer from "./Components/Footer";
 import theme from "./Styles/Theme";
 import { ThemeProvider } from "@emotion/react";
 import { UserProvider } from "./Context/useAuth";
+import { ScrollRestoration } from "react-router-dom";
 
 function App() {
   return (
-    <div 
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh',
-  }}
-    className="App"
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+      className="App"
     >
       <UserProvider>
         <ThemeProvider
@@ -23,11 +24,14 @@ function App() {
         >
           <NavBar />
           <div
-            style={{ height: "5vh" }}
+            style={{
+              height: "70px"
+            }}
           />
           <Outlet />
           <Footer />
           <ToastContainer />
+          <ScrollRestoration />
         </ThemeProvider>
       </UserProvider>
     </div>

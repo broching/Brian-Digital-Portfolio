@@ -7,7 +7,7 @@ function SkillCard({ title, description, imageSrc }) {
         <Card sx={{ boxShadow: 3, minHeight:"200px" }}>
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Typography variant="h4" component="div">
+                    <Typography variant="h5" component="div">
                         {title}
                     </Typography>
                     <Box sx={{ ml: 2 }}>

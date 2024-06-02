@@ -46,47 +46,47 @@ function NavBar() {
     };
 
     return (
-        <AppBar position="static" sx={{ bgcolor: "#383838" }}>
+        <AppBar position="fixed" sx={{ bgcolor: "#383838" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     {IsLoggedIn() && (
                         <>
-                        <SideBarAdmin 
-  items={[
-    {
-      name:"Skill",
-      icon: <CategoryIcon />,
-      children: [
-        {
-          name:"Create Skill",
-          link:"skills/create",
-          icon: <StarIcon />,
-        },
-        {
-          name:"List Skills",
-          link:"skills/listing",
-          icon: <ListAltIcon />,
-        },
-      ]
-    },
-    {
-      name:"Achievement",
-      icon: <AssignmentIcon />,
-      children: [
-        {
-          name:"Create Achievement",
-          link:"achievement/create",
-          icon: <StarIcon />,
-        },
-        {
-          name:"List Achievement",
-          link:"achievment/list",
-          icon: <ListAltIcon />,
-        },
-      ]
-    },
-  ]}
-/>
+                            <SideBarAdmin
+                                items={[
+                                    {
+                                        name: "Skill",
+                                        icon: <CategoryIcon />,
+                                        children: [
+                                            {
+                                                name: "Create Skill",
+                                                link: "skills/create",
+                                                icon: <StarIcon />,
+                                            },
+                                            {
+                                                name: "List Skills",
+                                                link: "skills/listing",
+                                                icon: <ListAltIcon />,
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        name: "Achievement",
+                                        icon: <AssignmentIcon />,
+                                        children: [
+                                            {
+                                                name: "Create Achievement",
+                                                link: "achievement/create",
+                                                icon: <StarIcon />,
+                                            },
+                                            {
+                                                name: "List Achievement",
+                                                link: "achievment/list",
+                                                icon: <ListAltIcon />,
+                                            },
+                                        ]
+                                    },
+                                ]}
+                            />
 
                         </>
                     )}
@@ -254,7 +254,7 @@ function NavBar() {
             </Container>
         </AppBar>
     );
-    
+
 }
 
 export default NavBar;

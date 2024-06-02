@@ -14,13 +14,15 @@ function Hero(props) {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
+                minHeight: '70vh',
+                marginTop:"1rem"
             }}
         >
             <Grid
                 container
                 style={{
                     width: '85%',
-                    height: '65vh',
+                    minHeight: '65vh',
                 }}
                 spacing={0}
                 alignItems="center"
@@ -60,7 +62,7 @@ function Hero(props) {
                         variant='h4'
                         style={{ fontWeight: "400", marginTop: "40px" }}
                     >
-                        "Coding like poetry should be short and concise."
+                        "Coding, like poetry should be short and concise."
                     </Typography>
                     <div style={{ marginTop: "50px", display: "flex", justifyContent: "center", gap: "20px" }}>
                         <IconButton href="https://www.instagram.com/broching_/" target="_blank" rel="noopener" aria-label="Instagram">
