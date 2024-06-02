@@ -4,6 +4,10 @@ import profilePic from "../Image/profilePic.png"
 import AboutMeSegment from '../Components/AboutMeSegment'
 import SkillSegment from '../Components/Skill/SkillSegment'
 import { GetAllSkill } from '../Services/SkillService'
+import ExperienceSegment from '../Components/Experience/ExperienceSegment'
+import ProjectSegment from '../Components/Project/ProjectSegment'
+import AchievementSegment from '../Components/Achievement/AchievementSegment'
+import CcaSegment from '../Components/Cca/CcaSegment'
 
 function Homepage() {
 
@@ -30,6 +34,18 @@ function Homepage() {
             />
             <AboutMeSegment />
             <SkillSegment
+                skillList={skillList}
+            />
+            <ExperienceSegment
+                skillList={skillList}
+            />
+            <ProjectSegment
+                skillList={skillList}
+            />
+            <AchievementSegment
+                skillList={skillList}
+            />
+            <CcaSegment
                 skillList={skillList}
             />
         </>
