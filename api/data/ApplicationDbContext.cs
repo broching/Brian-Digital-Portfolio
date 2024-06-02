@@ -21,6 +21,7 @@ namespace api.data
         // init DBSETs
         public DbSet<Achievement> Achievement {get; set; }
         public DbSet<Skill> Skill {get; set;}
+        public DbSet<Experience> Experience {get; set;}
 
         // init User 
         protected override void OnModelCreating(ModelBuilder builder)
