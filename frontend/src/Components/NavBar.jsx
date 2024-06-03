@@ -70,6 +70,22 @@ function NavBar() {
                                         ]
                                     },
                                     {
+                                        name: "Experience",
+                                        icon: <CategoryIcon />,
+                                        children: [
+                                            {
+                                                name: "Create Experience",
+                                                link: "experience/create",
+                                                icon: <StarIcon />,
+                                            },
+                                            {
+                                                name: "List Experiences",
+                                                link: "experience/listing",
+                                                icon: <ListAltIcon />,
+                                            },
+                                        ]
+                                    },
+                                    {
                                         name: "Achievement",
                                         icon: <AssignmentIcon />,
                                         children: [

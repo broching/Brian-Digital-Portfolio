@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using api.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,9 +94,11 @@ builder.Services.AddAuthentication(options => {
 
 // Add Interface and repositories here
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IFileHelperService, FileHelperService>();
 builder.Services.AddScoped<IAchievementRepository, AchievementRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
 // builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();

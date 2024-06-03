@@ -22,9 +22,8 @@ namespace api.Dtos.Experience.Request
         public DateTime DateStart { get; set; }
         [Required]
         public DateTime DateEnd { get; set; }
-        [Required]
         public string ImageCover { get; set; } = string.Empty;
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public List<string> ImageCollection { get; set; } = new List<string>();
         public List<IFormFile>? ImageFileCollection { get; set; } = new List<IFormFile>();
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, Box, Typography } from '@mui/material'
+import { Paper, Box, Typography } from '@mui/material'
 
 export default function ImageCarousel({ items }) {
     return (

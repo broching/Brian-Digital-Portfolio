@@ -48,6 +48,7 @@ namespace api.Mappers
 
             return new GetAllExperienceResponseDto
             {
+                Id = model.Id,
                 Title = model.Title,
                 Description = model.Description,
                 DateStart = model.DateStart,
@@ -71,6 +72,7 @@ namespace api.Mappers
 
             return new GetExperienceByIdResponseDto
             {
+                Id = model.Id,
                 Title = model.Title,
                 Description = model.Description,
                 DateStart = model.DateStart,

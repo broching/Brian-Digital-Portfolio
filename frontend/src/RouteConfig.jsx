@@ -7,6 +7,10 @@ import SkillsPage from './Pages/Skills/SkillsPage'
 import CreateSkillsPage from './Pages/Skills/CreateSkillPage'
 import SkillsListing from './Pages/Skills/SkillsListing'
 import EditSkillPage from './Pages/Skills/EditSkillPage'
+import ProtectedRoute from './ProtectedRoute'
+import CreateExperiencePage from './Pages/Experience/CreateExperiencePage'
+import ExperienceListing from './Pages/Experience/ExperienceListing'
+import EditExperiencePage from './Pages/Experience/EditExperiencePage'
 
 
 const router = createBrowserRouter([
@@ -28,16 +32,69 @@ const router = createBrowserRouter([
       },
       {
         path: "skills/create",
-        element: <CreateSkillsPage />
+        element: (
+          <ProtectedRoute>
+            <CreateSkillsPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: "skills/listing",
-        element: <SkillsListing />
+        element: (
+          <ProtectedRoute>
+            <SkillsListing />
+          </ProtectedRoute>
+        )
       },
       {
         path: "skills/edit/:id",
-        element: <EditSkillPage />
+        element: (
+          <ProtectedRoute>
+            <EditSkillPage />
+          </ProtectedRoute>
+        )
       },
+      {
+        path: "experience",
+        element: (
+          <ProtectedRoute>
+            <EditSkillPage />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "experience/view/:id",
+        element: (
+          <ProtectedRoute>
+            <EditSkillPage />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "experience/create",
+        element: (
+          <ProtectedRoute>
+            <CreateExperiencePage />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "experience/listing",
+        element: (
+          <ProtectedRoute>
+            <ExperienceListing />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "experience/edit/:id",
+        element: (
+          <ProtectedRoute>
+            <EditExperiencePage />
+          </ProtectedRoute>
+        )
+      },
+      
     ]
   }
 ])

@@ -6,7 +6,6 @@ using api.Dtos.Skill;
 using api.Dtos.Skill.Request;
 using api.Interface;
 using api.Mappers;
-using api.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Model.Strings;
@@ -18,13 +17,11 @@ namespace api.Controllers
     public class SkillController : ControllerBase
     {
         private readonly ISkillRepository _skillRepository;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly FileHelper _fileHelper;
-        public SkillController(ISkillRepository skillRepository, IWebHostEnvironment webHostEnvironment, FileHelper fileHelper)
+        private readonly IFileHelperService _fileHelperService;
+        public SkillController(ISkillRepository skillRepository, IFileHelperService fileHelperService)
         {
             _skillRepository = skillRepository;
-            _webHostEnvironment = webHostEnvironment;
-            _fileHelper = fileHelper;
+            _fileHelperService = fileHelperService;
         }
 
         [HttpPost]
@@ -34,7 +31,7 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            req.Image = await _fileHelper.SaveImage(req.ImageFile, "skill");
+            req.Image = await _fileHelperService.SaveImageAsync(req.ImageFile, "skill");
             var model = req.ToSkillModelFromCreateSkillRequestDto();
             var result = await _skillRepository.CreateAsync(model);
             return Ok(result.ToCreateSkillResponseDtoFromSkillModel());
@@ -77,10 +74,10 @@ namespace api.Controllers
             var oldImagePath = currentSkill.Image;
             if (req.ImageFile != null)
             {
-                req.Image = await _fileHelper.SaveImage(req.ImageFile, "skill");
+                req.Image = await _fileHelperService.SaveImageAsync(req.ImageFile, "skill");
                 if (!string.IsNullOrEmpty(oldImagePath))
                 {
-                    _fileHelper.DeleteOldImage(oldImagePath, "skill");
+                    _fileHelperService.DeleteImage(oldImagePath, "skill");
                 }
             }
             var model = req.ToSkillModelFromUpdateSkillRequestDto();
@@ -100,7 +97,7 @@ namespace api.Controllers
             {
                 return NotFound();
             }
-            _fileHelper.DeleteOldImage(currentSkill.Image, "skill");
+            _fileHelperService.DeleteImage(currentSkill.Image, "skill");
             var result = await _skillRepository.DeleteByIdAsync(id);
             if (result == null)
             {
@@ -119,7 +116,7 @@ namespace api.Controllers
                 var oldItem = await _skillRepository.GetByIdAsync(item);
                 if (oldItem != null)
                 {
-                    _fileHelper.DeleteOldImage(oldItem.Image, "skill");
+                    _fileHelperService.DeleteImage(oldItem.Image, "skill");
                 }
                 await _skillRepository.DeleteByIdAsync(item);
             }

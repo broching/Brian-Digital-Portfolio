@@ -4,8 +4,8 @@ import React from 'react'
 function DeleteModal(props) {
 
     const {
-        selectedSkill,
-        selectedSkillList,
+        selectedItem,
+        selectedItemList,
         handleClose,
         open,
         handleDelete
@@ -22,7 +22,7 @@ function DeleteModal(props) {
     </DialogTitle>
     <DialogContent>
         <DialogContentText>
-            Are you sure you want to delete the selected skill(s): {selectedSkill ? selectedSkill?.title : selectedSkillList?.map(x => (x + ", "))}
+            Are you sure you want to delete the selected: {selectedItem ? selectedItem?.title : selectedItemList?.map(x => (x + ", "))}
         </DialogContentText>
     </DialogContent>
     <DialogActions>
