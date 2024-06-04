@@ -52,7 +52,7 @@ function AboutMeSegment() {
                                 About Me
                             </Typography>
                         </div>
-                        <Divider sx={{ bgcolor: 'primary.main', mb: 2 }} />
+                        <Divider sx={{  mb: 2 }} />
                         <Typography variant="body1" paragraph align="justify">
                             Hi, I'm Brian Yuk Ka Chyun, a passionate and dedicated Developer. With a love for Full Stack Development, I have honed my skills in many languages and frameworks like React.Js, Node.js and many more.
                         </Typography>

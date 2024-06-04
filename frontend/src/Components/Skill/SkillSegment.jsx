@@ -5,28 +5,10 @@ import { Link } from 'react-router-dom';
 import SkillCard from './SkillCard';
 import StarsIcon from '@mui/icons-material/Stars';
 import Pagination from '@mui/material/Pagination';
+import SkillSlideCarousel from './SkillSlideCarousel';
 
 function SkillSegment({ skillList }) {
     const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const [page, setPage] = useState(1);
-    const [skillsPerPage, setSkillsPerPage] = useState(3);
-
-    useEffect(() => {
-        if (isSmallScreen)
-            setSkillsPerPage(2);
-        else
-            setSkillsPerPage(3);
-
-    }, [isSmallScreen]);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const startIndex = (page - 1) * skillsPerPage;
-    const endIndex = startIndex + skillsPerPage;
-    const paginatedSkills = skillList.slice(startIndex, endIndex);
 
     return (
         <Box
@@ -40,7 +22,7 @@ function SkillSegment({ skillList }) {
                 minHeight: '50vh',
             }}
         >
-            <Container>
+            <Container maxWidth="xl">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
                     <StarsIcon color="primary" sx={{ fontSize: 50, mr: 2, mb: 2 }} />
                     <Typography variant="h3" component="h1" gutterBottom align="center">
@@ -52,24 +34,13 @@ function SkillSegment({ skillList }) {
                 </Typography>
                 <Divider />
                 <Grid container spacing={4} sx={{ mt: 3 }}>
-                    {paginatedSkills.map((skill) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} key={skill.id}>
-                            <SkillCard
-                                title={skill.title}
-                                description={skill.description}
-                                imageSrc={skill.imageSrc}
-                            />
-                        </Grid>
-                    ))}
+                    <Grid item xs={12}>
+                        <SkillSlideCarousel
+                            items={skillList}
+                        />
+                    </Grid>
+
                 </Grid>
-                <Box sx={{ textAlign: 'center', marginTop: 2 }}>
-                    <Pagination
-                        count={Math.ceil(skillList.length / skillsPerPage)}
-                        page={page}
-                        onChange={handleChangePage}
-                        color="primary"
-                    />
-                </Box>
                 <Box sx={{ textAlign: 'center', marginTop: 2 }}>
                     <Button
                         component={Link}

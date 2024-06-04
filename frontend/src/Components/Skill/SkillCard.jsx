@@ -4,7 +4,7 @@ import { Box, Typography, Card, CardContent, Divider } from '@mui/material';
 
 function SkillCard({ title, description, imageSrc }) {
     return (
-        <Card sx={{ boxShadow: 3, minHeight:"200px" }}>
+        <Card sx={{ boxShadow: 3, minHeight:"200px", margin:3}}>
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h5" component="div">
