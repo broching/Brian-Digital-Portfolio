@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Box, Typography, Grid, CircularProgress, Divider, Pagination } from '@mui/material';
+import { Container, Box, Typography, Grid, CircularProgress, Divider, Pagination, IconButton } from '@mui/material';
 import StarsIcon from '@mui/icons-material/Stars';
 import { GetAllSkill } from '../../Services/SkillService';
 import SkillCard from '../../Components/Skill/SkillCard';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
 
 function SkillsPage() {
     const [loader, setLoader] = useState(true);
@@ -37,7 +39,10 @@ function SkillsPage() {
         >
             <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
-                    <StarsIcon color="primary" sx={{ fontSize: 50, mr: 2, mb:1 }} />
+                    <IconButton component={Link} to="/" sx={{ marginRight: 2 }}>
+                        <ArrowBack sx={{ fontSize: "3rem" }} />
+                    </IconButton>
+                    <StarsIcon color="primary" sx={{ fontSize: 50, mr: 2, mb: 1 }} />
                     <Typography variant="h3" component="h1" gutterBottom>
                         My Skills
                     </Typography>
@@ -45,7 +50,7 @@ function SkillsPage() {
                 <Typography variant="h5" gutterBottom>
                     Check out the skills I have developed through my career
                 </Typography>
-                <Typography variant="body1" sx={{ mb: 2, textAlign:"left", mt:3 }}>
+                <Typography variant="body1" sx={{ mb: 2, textAlign: "left", mt: 3 }}>
                     Throughout my professional journey, I have acquired a diverse set of skills that have helped me to
                     achieve various milestones. From technical expertise in software development to creative prowess in
                     design and innovative solutions, each skill has played a crucial role in my growth. I am constantly learning and

@@ -11,6 +11,7 @@ import ProtectedRoute from './ProtectedRoute'
 import CreateExperiencePage from './Pages/Experience/CreateExperiencePage'
 import ExperienceListing from './Pages/Experience/ExperienceListing'
 import EditExperiencePage from './Pages/Experience/EditExperiencePage'
+import ViewExperience from './Pages/Experience/ViewExperience'
 
 
 const router = createBrowserRouter([
@@ -66,7 +67,7 @@ const router = createBrowserRouter([
         path: "experience/view/:id",
         element: (
           <ProtectedRoute>
-            <EditSkillPage />
+            <ViewExperience />
           </ProtectedRoute>
         )
       },
