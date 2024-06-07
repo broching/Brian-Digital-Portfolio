@@ -13,6 +13,7 @@ import ExperienceListing from './Pages/Experience/ExperienceListing'
 import EditExperiencePage from './Pages/Experience/EditExperiencePage'
 import ViewExperience from './Pages/Experience/ViewExperience'
 import CreateProjectPage from './Pages/Project/CreateProjectPage'
+import ProjectListing from './Pages/Project/ProjectListing'
 
 
 const router = createBrowserRouter([
@@ -104,7 +105,7 @@ const router = createBrowserRouter([
         path: "project/listing",
         element: (
           <ProtectedRoute>
-            <ExperienceListing />
+            <ProjectListing />
           </ProtectedRoute>
         )
       },

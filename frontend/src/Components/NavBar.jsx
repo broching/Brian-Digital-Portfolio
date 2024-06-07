@@ -86,6 +86,22 @@ function NavBar() {
                                         ]
                                     },
                                     {
+                                        name: "Project",
+                                        icon: <CategoryIcon />,
+                                        children: [
+                                            {
+                                                name: "Create Project",
+                                                link: "project/create",
+                                                icon: <StarIcon />,
+                                            },
+                                            {
+                                                name: "List Projects",
+                                                link: "project/listing",
+                                                icon: <ListAltIcon />,
+                                            },
+                                        ]
+                                    },
+                                    {
                                         name: "Achievement",
                                         icon: <AssignmentIcon />,
                                         children: [
