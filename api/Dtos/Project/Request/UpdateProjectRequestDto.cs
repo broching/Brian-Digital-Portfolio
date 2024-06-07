@@ -16,6 +16,7 @@ namespace api.Dtos.Project.Request
         public string Accomplishment { get; set; } = string.Empty;
         [Required]
         public string Category { get; set; } = string.Empty;
+        public string WebLink { get; set; } = string.Empty;
         public string ImageCover { get; set; } = string.Empty;
         public IFormFile? ImageCoverFile { get; set; }
         public List<string> ImageCollection { get; set; } = new List<string>();

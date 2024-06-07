@@ -99,6 +99,7 @@ builder.Services.AddScoped<IAchievementRepository, AchievementRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 // builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.data;
 
@@ -11,9 +12,11 @@ using api.data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240607065205_projectInit")]
+    partial class projectInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "52a5f937-b25a-4fb7-a2fc-872e75a0d4e6",
+                            Id = "ce9e16bf-3733-4084-8b62-d4b34707da4a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -337,10 +340,6 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WebLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

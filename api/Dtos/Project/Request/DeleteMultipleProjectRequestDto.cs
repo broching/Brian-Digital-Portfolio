@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Project.Request
 {
-    public class DeleteMultipleRequestDto
+    public class DeleteMultipleProjectRequestDto
     {
         public List<int> DeleteList { get; set; } = new List<int>();
     }

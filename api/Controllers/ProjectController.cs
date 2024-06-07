@@ -153,7 +153,7 @@ namespace api.Controllers
 
         [HttpPost]
         [Route("deleteMultiple")]
-        public async Task<IActionResult> DeleteMultipleById([FromBody] DeleteMultipleRequestDto req)
+        public async Task<IActionResult> DeleteMultipleById([FromBody] DeleteMultipleProjectRequestDto req)
         {
             foreach (var item in req.DeleteList)
             {

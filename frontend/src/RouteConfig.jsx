@@ -12,6 +12,7 @@ import CreateExperiencePage from './Pages/Experience/CreateExperiencePage'
 import ExperienceListing from './Pages/Experience/ExperienceListing'
 import EditExperiencePage from './Pages/Experience/EditExperiencePage'
 import ViewExperience from './Pages/Experience/ViewExperience'
+import CreateProjectPage from './Pages/Project/CreateProjectPage'
 
 
 const router = createBrowserRouter([
@@ -56,19 +57,9 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: "experience",
-        element: (
-          <ProtectedRoute>
-            <EditSkillPage />
-          </ProtectedRoute>
-        )
-      },
-      {
         path: "experience/view/:id",
         element: (
-          <ProtectedRoute>
             <ViewExperience />
-          </ProtectedRoute>
         )
       },
       {
@@ -95,7 +86,36 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         )
       },
-      
+      {
+        path: "project/view/:id",
+        element: (
+            <ViewExperience />
+        )
+      },
+      {
+        path: "project/create",
+        element: (
+          <ProtectedRoute>
+            <CreateProjectPage />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "project/listing",
+        element: (
+          <ProtectedRoute>
+            <ExperienceListing />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "project/edit/:id",
+        element: (
+          <ProtectedRoute>
+            <EditExperiencePage />
+          </ProtectedRoute>
+        )
+      },
     ]
   }
 ])
