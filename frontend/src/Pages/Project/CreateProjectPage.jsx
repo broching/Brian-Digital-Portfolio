@@ -33,7 +33,7 @@ const CreateProjectPage = () => {
             accomplishment: Yup.string().required('Accomplishment is required'),
             category: Yup.string().required('Category is required'),
             webLink: Yup.string().required(),
-            instructino: Yup.string().required(),
+            instruction: Yup.string().required(),
             imageCoverFile: Yup.mixed().required('Image File is required'),
             imageCollectionFile: Yup.array()
         }),

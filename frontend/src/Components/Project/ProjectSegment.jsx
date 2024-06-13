@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Paper, Box, Tabs, Tab, Divider, Button } from '@mui/material';
 import ProjectSlideCarousel from './ProjectSlideCarousel';
 import { GetAllProject } from '../../Services/ProjectService';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 const ProjectSegment = () => {
     const [projects, setProjects] = useState([]);
@@ -23,6 +24,7 @@ const ProjectSegment = () => {
             <Container maxWidth="xl" sx={{ marginTop: 4 }}>
                 <Box>
                     <Typography variant="h3" sx={{ mt: -1.5, mb: 1 }} gutterBottom>
+                        <AccountTreeIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
                         Projects
                     </Typography>
                     <Divider sx={{ backgroundColor: "#D5D5D5", width: "15%", minWidth: "200px" }} />

@@ -4,6 +4,7 @@ import { GetAllExperience } from '../../Services/ExperienceService';
 import defaultImage from "../../Image/empty-default.jpg";
 import ExperienceSlideCarousel from './ExperienceSlideCarousel';
 import workingDesktop from "../../Image/experiencePortrait4.png"
+import WorkIcon from '@mui/icons-material/Work';
 
 const ExperienceSegment = () => {
     const [experiences, setExperiences] = useState([]);
@@ -80,19 +81,20 @@ const ExperienceSegment = () => {
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
                             backgroundSize: "cover",
-                            minHeight:"550px",
-                            maxHeight:"600px"
+                            minHeight: "550px",
+                            maxHeight: "600px"
 
                         }}
                     >
-                        <Typography variant="h3" sx={{mt:-1.5, mb: 1 }} gutterBottom>
+                        <Typography variant="h3" sx={{ mt: -1.5, mb: 1 }} gutterBottom>
+                            <WorkIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
                             Experiences
                         </Typography>
                         <Divider sx={{ backgroundColor: "#D5D5D5", width: "80%" }} />
-                        <Typography variant="body1" sx={{ mt: 2,}} paragraph>
+                        <Typography variant="body1" sx={{ mt: 2, }} paragraph>
                             Gaining experience in both education and work is crucial for personal and professional growth.
                         </Typography>
-                        <Typography variant="body1"paragraph>
+                        <Typography variant="body1" paragraph>
                             It also encourages critical thinking and problem solving, here are my experiences.
                         </Typography>
                     </Grid>
