@@ -82,10 +82,16 @@ const EditProjectPage = () => {
             formData.append('webLink', values.webLink)
             formData.append('instruction', values.instruction)
             formData.append('imageCoverFile', values.imageCoverFile);
+            formData.append('imageCover', values.imageCover)
             for (let i = 0; i < imageFileCollection.length; i++) {
                 let image = imageFileCollection[i];
                 formData.append('imageCollectionFile', image);
             }
+            for (let i = 0; i < imageCollectionName.length; i++) {
+                let name = imageCollectionName[i];
+                formData.append('imageCollection', name);
+            }
+            console.log(formData.getAll('imageCover'))
             try {
                 UpdateProject(id, formData, navigate);
             } catch (error) {
