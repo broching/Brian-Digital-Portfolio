@@ -57,10 +57,10 @@ namespace api.Mappers
 
         public static GetProjectByIdResponseDto ToGetProjectByIdResponseDtoFromProjectModel(this Project model, HttpRequest request)
         {
-            string imageCoverSrc = string.Format("{0}://{1}{2}/Image/Experience/{3}", request.Scheme, request.Host, request.PathBase, model.ImageCover);
+            string imageCoverSrc = string.Format("{0}://{1}{2}/Image/Project/{3}", request.Scheme, request.Host, request.PathBase, model.ImageCover);
             var imageCollectionSrc = model.ImageCollection
             .ToList()
-            .Select(x => string.Format("{0}://{1}{2}/Image/Experience/{3}", request.Scheme, request.Host, request.PathBase, x));
+            .Select(x => string.Format("{0}://{1}{2}/Image/Project/{3}", request.Scheme, request.Host, request.PathBase, x));
 
             return new GetProjectByIdResponseDto
             {

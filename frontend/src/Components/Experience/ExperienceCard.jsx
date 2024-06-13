@@ -7,11 +7,13 @@ function ExperienceCard(props) {
     const { experience } = props;
     return (
         <Paper elevation={3} sx={{ padding: 2, margin: 3, minWidth: "250px" }}>
-            <Box sx={{ textAlign: 'center' }}>
-                <img src={experience.imageCoverSrc || defaultImage} alt={experience.title} style={{ maxWidth: '100%', maxHeight: 120, borderRadius: "7px" }} />
+            <Box sx={{  display: "flex", justifyContent: "space-between" }}>
+                <Box>
+                    <Typography variant="h6" gutterBottom>{experience.title}</Typography>
+                    <Divider variant='fullWidth' sx={{ mb: 2, mr:1 }} />
+                </Box>
+                <img src={experience.imageCoverSrc || defaultImage} alt={experience.title} style={{ maxWidth: '100%', maxHeight: 100, borderRadius: "7px" }} />
             </Box>
-            <Typography variant="h6" gutterBottom>{experience.title}</Typography>
-            <Divider variant='fullWidth' sx={{ mb: 2, width: "25%" }} />
             <Typography variant="body2" color="#1976d2">{new Date(experience.dateStart).toLocaleDateString()} - {new Date(experience.dateEnd).toLocaleDateString()}</Typography>
             <Typography variant="h7" color="black"> {experience.parentName}</Typography>
             <Typography variant="body2" color="textSecondary">{experience.description}</Typography>

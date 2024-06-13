@@ -10,6 +10,7 @@ export default function ImageCarousel({ items }) {
             {
                 items?.map((item, i) => 
                 <Paper
+                key={i}
                 sx={{width:"100%"}}
                 >
                     <Box

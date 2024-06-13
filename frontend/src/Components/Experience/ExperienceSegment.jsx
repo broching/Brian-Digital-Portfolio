@@ -107,8 +107,6 @@ const ExperienceSegment = () => {
                             {renderTabContent()}
                         </Box>
                     </Grid>
-                    <Grid item xs={12}>
-                    </Grid>
                 </Grid>
             </Container>
         </Box>

@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Toolbar, Link, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Container, Typography, Toolbar, Link, Button} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import WorkIcon from '@mui/icons-material/Work';
-import { GetAllExperience, DeleteMultipleExperience, DeleteExperience } from '../../Services/ExperienceService';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import DeleteModal from '../../Components/Common/DeleteModal';
+import { DeleteMultipleProject, DeleteProject, GetAllProject } from '../../Services/ProjectService';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 function ProjectListing() {
     const navigate = useNavigate();
-    const [experiences, setExperiences] = useState([]);
+    const [items, setItems] = useState([]);
     const [open, setOpen] = useState(false);
     const [multipleOpen, setMultipleOpen] = useState(false);
-    const [selectedExperience, setSelectedExperience] = useState(null);
-    const [selectedExperienceList, setSelectedExperienceList] = useState([]);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItemList, setSelectedItemList] = useState([]);
 
-    const loadExperiences = () => {
+    const loadItems = () => {
         try {
-            GetAllExperience()
+            GetAllProject()
                 .then((res) => {
-                    setExperiences(res.data);
+                    setItems(res.data);
                 })
                 .catch((err) => {
                     toast.error('Internal server error occurred');
                 })
         } catch (error) {
-            console.error('Error fetching experiences:', error);
+            console.error('Error fetching Projects:', error);
         }
     };
 
     const handleOpen = (item) => {
-        setSelectedExperience(item);
+        setSelectedItem(item);
         setOpen(true);
     };
 
@@ -45,11 +45,11 @@ function ProjectListing() {
     };
 
     const handleDelete = async () => {
-        DeleteExperience(selectedExperience.id)
+        DeleteProject(selectedItem.id)
             .then((res) => {
                 if (res.status === 200) {
                     toast.success(`Deletion "${res.data.title}" successful`);
-                    loadExperiences();
+                    loadItems();
                 }
             })
             .catch((err) => {
@@ -59,11 +59,11 @@ function ProjectListing() {
     };
 
     const handleDeleteMultiple = async () => {
-        DeleteMultipleExperience(selectedExperienceList)
+        DeleteMultipleProject(selectedItemList)
             .then((res) => {
                 if (res.status === 200) {
-                    toast.success(`Deletion of selected experiences successful`);
-                    loadExperiences();
+                    toast.success(`Deletion of selected Items successful`);
+                    loadItems();
                 }
             })
             .catch((err) => {
@@ -73,7 +73,7 @@ function ProjectListing() {
     };
 
     const handleDeleteMultipleConfirmation = () => {
-        if (selectedExperienceList.length === 0) {
+        if (selectedItemList.length === 0) {
             toast.warning("No Experiences Selected To Delete");
             return;
         }
@@ -81,7 +81,7 @@ function ProjectListing() {
     }
 
     useEffect(() => {
-        loadExperiences();
+        loadItems();
     }, []);
 
     const columns = [
@@ -89,15 +89,13 @@ function ProjectListing() {
         { field: 'title', headerName: 'Title', flex: 1 },
         { field: 'category', headerName: 'Category', flex: 1 },
         { field: 'description', headerName: 'Description', flex: 2 },
-        { field: 'dateStart', headerName: 'Start Date', width: 150 },
-        { field: 'dateEnd', headerName: 'End Date', width: 150 },
         {
             field: 'actions',
             headerName: 'Actions',
             width: 200,
             renderCell: (params) => (
                 <Toolbar>
-                    <Link component={RouterLink} to={`/experience/edit/${params.row.id}`} color="primary" underline="none" sx={{ mr: 3 }}>
+                    <Link component={RouterLink} to={`/project/edit/${params.row.id}`} color="primary" underline="none" sx={{ mr: 3 }}>
                         <EditIcon />
                     </Link>
                     <Link component="button" color="error" underline="none" onClick={() => handleOpen(params.row)}>
@@ -111,12 +109,12 @@ function ProjectListing() {
     return (
         <Container maxWidth="lg" sx={{ marginTop: 4 }}>
             <Typography variant="h3" align="center" gutterBottom>
-                <WorkIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
+                <AccountTreeIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
                 Project Listing
             </Typography>
             <Button
                 variant="contained"
-                onClick={() => navigate("/experience/create")}
+                onClick={() => navigate("/project/create")}
                 sx={{ mb: 3 }}
             >
                 Create
@@ -131,13 +129,13 @@ function ProjectListing() {
             </Button>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={experiences}
+                    rows={items}
                     columns={columns}
                     pageSize={5}
                     checkboxSelection
                     disableSelectionOnClick
                     onRowSelectionModelChange={(newRowSelectionModel) => {
-                        setSelectedExperienceList(newRowSelectionModel);
+                        setSelectedItemList(newRowSelectionModel);
                     }}
                 />
             </div>
@@ -145,13 +143,13 @@ function ProjectListing() {
                 open={open}
                 handleClose={handleClose}
                 handleDelete={handleDelete}
-                selectedItem={selectedExperience}
+                selectedItem={selectedItem}
             />
             <DeleteModal
                 open={multipleOpen}
                 handleClose={handleMultipleClose}
                 handleDelete={handleDeleteMultiple}
-                selectedItemList={selectedExperienceList}
+                selectedItemList={selectedItemList}
             />
         </Container>
     );

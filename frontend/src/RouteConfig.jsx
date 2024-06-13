@@ -14,6 +14,7 @@ import EditExperiencePage from './Pages/Experience/EditExperiencePage'
 import ViewExperience from './Pages/Experience/ViewExperience'
 import CreateProjectPage from './Pages/Project/CreateProjectPage'
 import ProjectListing from './Pages/Project/ProjectListing'
+import ViewProject from './Pages/Project/ViewProject'
 
 
 const router = createBrowserRouter([
@@ -90,7 +91,7 @@ const router = createBrowserRouter([
       {
         path: "project/view/:id",
         element: (
-            <ViewExperience />
+            <ViewProject />
         )
       },
       {

@@ -1,11 +1,10 @@
 import { Container, Grid, Typography, } from '@mui/material'
 import React from 'react'
-import ExperienceCard from '../Experience/ExperienceCard';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import SkillCard from './SkillCard';
+import ProjectCard from './ProjectCard';
 
-function SkillSlideCarousel(props) {
+function ProjectSlideCarousel(props) {
     const { items } = props
     return (
         <Carousel
@@ -25,6 +24,7 @@ function SkillSlideCarousel(props) {
             minimumTouchDrag={80}
             pauseOnHover
             renderArrowsWhenDisabled={false}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
             renderButtonGroupOutside={false}
             renderDotsOutside={false}
             responsive={{
@@ -38,7 +38,7 @@ function SkillSlideCarousel(props) {
                 },
                 mobile: {
                     breakpoint: {
-                        max: 464,
+                        max: 672,
                         min: 0
                     },
                     items: 1,
@@ -47,7 +47,7 @@ function SkillSlideCarousel(props) {
                 tablet: {
                     breakpoint: {
                         max: 1024,
-                        min: 464
+                        min: 672
                     },
                     items: 2,
                     partialVisibilityGutter: 30
@@ -56,22 +56,15 @@ function SkillSlideCarousel(props) {
             rewind={false}
             rewindWithAnimation={false}
             rtl={false}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
             shouldResetAutoplay
             showDots={false}
             sliderClass=""
             slidesToSlide={1}
             swipeable
         >
-            {items.map(item => (
-                <SkillCard
-                    key={item.id}
-                    title={item.title}
-                    description={item.description}
-                    imageSrc={item.imageSrc}
-                />))}
+            {items.map(item => (<ProjectCard item={item} key={item.id} />))}
         </Carousel>
     )
 }
 
-export default SkillSlideCarousel
+export default ProjectSlideCarousel

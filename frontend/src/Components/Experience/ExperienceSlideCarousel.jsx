@@ -38,7 +38,7 @@ function ExperienceSlideCarousel(props) {
                 },
                 mobile: {
                     breakpoint: {
-                        max: 464,
+                        max: 672,
                         min: 0
                     },
                     items: 1,
@@ -47,7 +47,7 @@ function ExperienceSlideCarousel(props) {
                 tablet: {
                     breakpoint: {
                         max: 1024,
-                        min: 464
+                        min: 672
                     },
                     items: 2,
                     partialVisibilityGutter: 30
@@ -62,7 +62,7 @@ function ExperienceSlideCarousel(props) {
             slidesToSlide={1}
             swipeable
         >
-            {items.map(item => (<ExperienceCard experience={item} />))}
+            {items.map(item => (<ExperienceCard experience={item} key={item.id}/>))}
         </Carousel>
     )
 }

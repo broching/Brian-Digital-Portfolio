@@ -17,9 +17,9 @@ async function CreateProject(formData, navigate) {
 }
 
 
-async function GetAllExperience() {
+async function GetAllProject() {
 
-    return await axios.get(baseApi + "get")
+    return await axios.get(baseApi + "getAll")
         .then((res) => {
             return res;
         })
@@ -29,7 +29,7 @@ async function GetAllExperience() {
         });
 }
 
-async function GetExperienceById(id) {
+async function GetProjectById(id) {
 
     return await axios.get(baseApi + `get/${id}`)
         .then((res) => {
@@ -54,7 +54,7 @@ async function UpdateExperience(id, formData, navigate) {
         });
 }
 
-async function DeleteExperience(id) {
+async function DeleteProject(id) {
 
     return await axios.delete(baseApi + `delete/${id}`)
         .then((res) => {
@@ -66,7 +66,7 @@ async function DeleteExperience(id) {
         });
 }
 
-async function DeleteMultipleExperience(idArray) {
+async function DeleteMultipleProject(idArray) {
 
     return await axios.post(baseApi + `deleteMultiple`, {DeleteList: idArray})
         .then((res) => {
@@ -80,9 +80,9 @@ async function DeleteMultipleExperience(idArray) {
 
 export {
     CreateProject,
-    GetAllExperience,
-    GetExperienceById,
+    GetAllProject,
+    GetProjectById,
     UpdateExperience,
-    DeleteExperience,
-    DeleteMultipleExperience
+    DeleteProject,
+    DeleteMultipleProject
 }; // Export the function
