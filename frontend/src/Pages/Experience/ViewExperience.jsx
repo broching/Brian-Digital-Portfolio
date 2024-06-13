@@ -9,6 +9,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import GallerySlideCarousel from '../../Components/Common/GallerySlideCarousel';
+import MDEditor from '@uiw/react-md-editor';
 
 const ViewExperience = () => {
     const { id } = useParams();
@@ -74,9 +75,7 @@ const ViewExperience = () => {
                                 <strong>Accomplishments</strong>
                             </Typography>
                         </Box>
-                        <Typography variant="body1" sx={{ marginTop: 1 }} textAlign={"left"}>
-                            {experience.accomplishment}
-                        </Typography>
+                        <MDEditor.Markdown source={experience.accomplishment} style={{ whiteSpace: 'pre-wrap' }} />
                     </Grid>
                     <Grid item xs={12} sm={4} md={4}>
                         <Box sx={{ textAlign: 'center', marginBottom: 2 }}>

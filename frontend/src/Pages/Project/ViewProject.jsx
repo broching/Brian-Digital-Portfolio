@@ -5,9 +5,11 @@ import defaultImage from "../../Image/empty-default.jpg";
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import GallerySlideCarousel from '../../Components/Common/GallerySlideCarousel';
 import { GetProjectById } from '../../Services/ProjectService';
+import MDEditor from '@uiw/react-md-editor';
 
 const ViewProject = () => {
     const { id } = useParams();
@@ -58,16 +60,23 @@ const ViewProject = () => {
                         <Typography variant="body1" sx={{ marginTop: 1 }} textAlign={"left"}>
                             {project.description}
                         </Typography>
-                        <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
+                        <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
                             <CheckCircleIcon color="action" />
                             <Typography variant="body1" sx={{ marginLeft: 1 }}>
                                 <strong>Accomplishments</strong>
                             </Typography>
                         </Box>
+                        <MDEditor.Markdown source={project.accomplishment} style={{ whiteSpace: 'pre-wrap' }} />
+                        <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
+                            <FormatListNumberedIcon color="action" />
+                            <Typography variant="body1" sx={{ marginLeft: 1 }}>
+                                <strong>Instructions</strong>
+                            </Typography>
+                        </Box>
                         <Typography variant="body1" sx={{ marginTop: 1 }} textAlign={"left"}>
-                            {project.accomplishment}
+                            {project.instruction}
                         </Typography>
-                        <Button component={Link} to={`${project.webLink}`} variant="contained" sx={{ mt: 2, mb:2 }}>
+                        <Button component={Link} to={`${project.webLink}`} variant="contained" sx={{ mt: 2, mb: 2 }}>
                             View
                         </Button>
                     </Grid>

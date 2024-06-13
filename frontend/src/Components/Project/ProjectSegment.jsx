@@ -26,6 +26,9 @@ const ProjectSegment = () => {
                         Projects
                     </Typography>
                     <Divider sx={{ backgroundColor: "#D5D5D5", width: "15%", minWidth: "200px" }} />
+                    <Typography variant="body1" sx={{ mt: 2, }} paragraph>
+                        Check out the projects that helped me develop my skillset and confidence as a developer.
+                    </Typography>
                 </Box>
                 <Box sx={{ marginTop: 4 }}>
                     {projects.length > 0 ? (

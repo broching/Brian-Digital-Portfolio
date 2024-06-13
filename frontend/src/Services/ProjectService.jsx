@@ -41,12 +41,12 @@ async function GetProjectById(id) {
         });
 }
 
-async function UpdateExperience(id, formData, navigate) {
+async function UpdateProject(id, formData, navigate) {
 
     return await axios.put(baseApi + `update/${id}`, formData)
         .then((res) => {
-            toast.success(`Experience: ${res.data.title} has been updated`);
-            navigate('/experience/listing')
+            toast.success(`Project: ${res.data.title} has been updated`);
+            navigate('/project/listing')
         })
         .catch((err) => {
             console.log(err);
@@ -82,7 +82,7 @@ export {
     CreateProject,
     GetAllProject,
     GetProjectById,
-    UpdateExperience,
+    UpdateProject,
     DeleteProject,
     DeleteMultipleProject
 }; // Export the function

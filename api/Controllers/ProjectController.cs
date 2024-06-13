@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Dtos.Project.Request;
 using api.Interface;
 using api.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -51,6 +52,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("get/{id:int}")]
         public async Task<IActionResult> GetProjectById([FromRoute] int id)
         {

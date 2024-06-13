@@ -14,6 +14,7 @@ namespace api.Dtos.Project.Request
         public string Description { get; set; } = string.Empty;
         [Required]
         public string Accomplishment { get; set; } = string.Empty;
+        public string Instruction { get; set; } = string.Empty;
         [Required]
         public string Category { get; set; } = string.Empty;
         public string WebLink { get; set; } = string.Empty;

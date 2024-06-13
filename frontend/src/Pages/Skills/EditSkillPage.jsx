@@ -7,6 +7,7 @@ import { UpdateSkill, GetSkillById } from '../../Services/SkillService';
 import { useNavigate, useParams } from 'react-router';
 import CreateIcon from '@mui/icons-material/Create';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MDEditor from '@uiw/react-md-editor';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required').max(25, 'Title must be at most 25 characters'),
@@ -114,18 +115,14 @@ function EditSkillPage() {
                                     helperText={formik.touched.title && formik.errors.title}
                                     margin="normal"
                                 />
-                                <TextField
-                                    fullWidth
-                                    id="description"
-                                    name="description"
-                                    label="Description"
+                                <MDEditor
                                     value={formik.values.description}
-                                    onChange={formik.handleChange}
-                                    error={formik.touched.description && Boolean(formik.errors.description)}
-                                    helperText={formik.touched.description && formik.errors.description}
-                                    margin="normal"
-                                    multiline
-                                    rows={4}
+                                    onChange={(content) => {
+                                        formik.setFieldValue("description", content);
+                                    }}
+                                    textareaProps={{
+                                        placeholder: 'Please enter description',
+                                    }}
                                 />
                                 {/* Image upload field */}
                                 <input

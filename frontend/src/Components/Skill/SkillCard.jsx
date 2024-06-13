@@ -1,10 +1,11 @@
 // SkillCard.js
 import React from 'react';
 import { Box, Typography, Card, CardContent, Divider } from '@mui/material';
+import MDEditor from '@uiw/react-md-editor';
 
 function SkillCard({ title, description, imageSrc }) {
     return (
-        <Card sx={{ boxShadow: 3, minHeight:"200px", margin:3}}>
+        <Card sx={{ boxShadow: 3, minHeight: "200px", margin: 3 }}>
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h5" component="div">
@@ -19,9 +20,9 @@ function SkillCard({ title, description, imageSrc }) {
                     </Box>
                 </Box>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="body2" color="text.secondary">
-                    {description}
-                </Typography>
+                <div className="Md-Container">
+                    <MDEditor.Markdown source={description} style={{ whiteSpace: 'pre-wrap' }} />
+                </div>
             </CardContent>
         </Card>
     );

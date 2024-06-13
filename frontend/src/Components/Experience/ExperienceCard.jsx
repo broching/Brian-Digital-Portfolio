@@ -17,8 +17,6 @@ function ExperienceCard(props) {
             <Typography variant="body2" color="#1976d2">{new Date(experience.dateStart).toLocaleDateString()} - {new Date(experience.dateEnd).toLocaleDateString()}</Typography>
             <Typography variant="h7" color="black"> {experience.parentName}</Typography>
             <Typography variant="body2" color="textSecondary">{experience.description}</Typography>
-            <Typography variant="body1" color="textSecondary" sx={{ textAlign: "left", mt: 1 }}><strong>Accomplishments</strong></Typography>
-            <Typography variant="body2" color="textSecondary"> {experience.accomplishment}</Typography>
             <Button component={Link} to={`/experience/view/${experience.id}`} variant="contained" sx={{ mt: 2 }}>
                 View
             </Button>

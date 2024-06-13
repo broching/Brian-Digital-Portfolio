@@ -11,6 +11,7 @@ namespace api.Dtos.Project.Response
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Accomplishment { get; set; } = string.Empty;
+        public string Instruction { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
         public string WebLink { get; set; } = string.Empty;
         public string ImageCover { get; set; } = string.Empty;

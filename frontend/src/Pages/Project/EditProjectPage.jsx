@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Box, Typography, Grid, Button, Divider, TextField, MenuItem, CircularProgress } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, Box, Typography, Grid, Button, Divider, TextField, MenuItem } from '@mui/material';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ImageShowCarousel from '../../Components/Common/ImageShowCarousel';
 import defaultImage from "../../Image/empty-default.jpg";
-import { UpdateExperience, GetExperienceById } from '../../Services/ExperienceService';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { GetProjectById, UpdateProject } from '../../Services/ProjectService';
 import MDEditor from '@uiw/react-md-editor';
 
-const EditExperiencePage = () => {
+const EditProjectPage = () => {
     const navigate = useNavigate();
     const [imagePreview, setImagePreview] = useState(null);
     const [imageFileCollection, setImageFileCollection] = useState([]);
-    const [imageCollection, setImageCollection] = useState([]);
+    const [imageCollectionSrc, setImageCollectionSrc] = useState([]);
     const [imageCollectionName, setImageCollectionName] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const { id } = useParams();
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await GetExperienceById(id);
+                const res = await GetProjectById(id);
                 formik.setFieldValue('title', res.data.title)
                 formik.setFieldValue('accomplishment', res.data.accomplishment)
+                formik.setFieldValue('instruction', res.data.instruction)
                 formik.setFieldValue('description', res.data.description)
-                formik.setFieldValue('parentName', res.data.parentName)
                 formik.setFieldValue('category', res.data.category)
-                formik.setFieldValue('dateStart', formatDate(res.data.dateStart))
-                formik.setFieldValue('dateEnd', formatDate(res.data.dateEnd))
+                formik.setFieldValue('webLink', res.data.webLink)
+                formik.setFieldValue('instruction', res.data.instruction)
                 formik.setFieldValue('imageCover', res.data.imageCover)
                 formik.setFieldValue('imageCoverSrc', res.data.imageCoverSrc)
                 formik.setFieldValue('imageCollection', res.data.imageCollection)
@@ -46,86 +45,65 @@ const EditExperiencePage = () => {
                     }
                     tempArray.push(insert);
                 }
-                setImageCollection(tempArray)
+                setImageCollectionSrc(tempArray)
 
 
-                setLoading(false);
             } catch (error) {
-                console.error('Error fetching skill:', error);
-                setLoading(false);
+                console.error('Error fetching project:', error);
             }
         };
         fetchData()
     }, [id]);
-
-    const formatDate = (date) => {
-        const d = new Date(date);
-        const month = `0${d.getMonth() + 1}`.slice(-2);
-        const day = `0${d.getDate()}`.slice(-2);
-        const year = d.getFullYear();
-        return `${year}-${month}-${day}`;
-    };
-
     const formik = useFormik({
         initialValues: {
             title: '',
             description: '',
             accomplishment: '',
-            parentName: '',
             category: '',
-            dateStart: '',
-            dateEnd: '',
-            imageFile: null,
-            imageFileCollection: []
+            webLink: '',
+            instruction: '',
+            imageCoverFile: null,
+            imageCollectionFile: []
         },
         validationSchema: Yup.object({
             title: Yup.string().required('Title is required'),
             description: Yup.string().required('Description is required'),
             accomplishment: Yup.string().required('Accomplishment is required'),
-            parentName: Yup.string().required('Parent Name is required'),
+            webLink: Yup.string().required(),
+            instructino: Yup.string().required(),
             category: Yup.string().required('Category is required'),
-            dateStart: Yup.date().required('Start Date is required'),
-            dateEnd: Yup.date().required('End Date is required'),
-            imageFileCollection: Yup.array()
         }),
         onSubmit: async (values) => {
             const formData = new FormData();
             formData.append('title', values.title);
             formData.append('description', values.description);
             formData.append('accomplishment', values.accomplishment);
-            formData.append('parentName', values.parentName);
             formData.append('category', values.category);
-            formData.append('dateStart', values.dateStart);
-            formData.append('dateEnd', values.dateEnd);
-            formData.append('imageFile', values.imageFile);
-            formData.append('imageCover', values.imageCover)
+            formData.append('webLink', values.webLink)
+            formData.append('instruction', values.instruction)
+            formData.append('imageCoverFile', values.imageCoverFile);
             for (let i = 0; i < imageFileCollection.length; i++) {
                 let image = imageFileCollection[i];
-                formData.append('imageFileCollection', image);
-            }
-            for (let i = 0; i < imageCollectionName.length; i++) {
-                let name = imageCollectionName[i];
-                formData.append('imageCollection', name);
+                formData.append('imageCollectionFile', image);
             }
             try {
-                UpdateExperience(id, formData, navigate);
+                UpdateProject(id, formData, navigate);
             } catch (error) {
-                toast.error('Failed to create experience');
+                toast.error('Failed to update project');
             }
         }
     });
 
-    const removeImageCollection = (name) => {
-        setImageCollectionName(imageCollectionName.filter(x => x != name.imageName));
-    }
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            formik.setFieldValue('imageFile', file);
+            formik.setFieldValue('imageCoverFile', file);
             setImagePreview(URL.createObjectURL(file));
         }
     };
+    const removeImageCollection = (image) => {
+        setImageFileCollection(prevList => prevList.filter(x => x.name != image.imageAlt))
+    }
 
     const handleAdditionalImagesChange = (e) => {
         const file = e.target.files[0];
@@ -133,20 +111,11 @@ const EditExperiencePage = () => {
             return;
         const newItem = {
             imageSrc: URL.createObjectURL(file),
-            iamgeAlt: file.name,
+            imageAlt: file.name,
         }
         setImageFileCollection(prevList => [...prevList, file]);
-        setImageCollection(prevList => [...prevList, newItem]);
+        setImageCollectionSrc(prevList => [...prevList, newItem]);
     };
-    if (loading) {
-        return (
-            <Container maxWidth="md" sx={{ marginTop: 4 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <CircularProgress />
-                </Box>
-            </Container>
-        );
-    }
 
     return (
         <Container maxWidth="md">
@@ -154,10 +123,10 @@ const EditExperiencePage = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
                     <ArrowBackIcon
                         fontSize="large"
-                        onClick={() => navigate("/experience/listing")}
+                        onClick={() => navigate("/project/listing")}
                         sx={{ cursor: 'pointer', mr: 2 }}
                     />
-                    <Typography variant="h4">Update Your Experience</Typography>
+                    <Typography variant="h4">Update Your Project</Typography>
                 </Box>
                 <Divider sx={{ mb: 3 }} />
                 <form onSubmit={formik.handleSubmit}>
@@ -176,46 +145,28 @@ const EditExperiencePage = () => {
                             />
                             <TextField
                                 fullWidth
-                                label="Parent Name"
-                                name="parentName"
-                                value={formik.values.parentName}
+                                label="WebLink"
+                                name="webLink"
+                                value={formik.values.webLink}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.parentName && Boolean(formik.errors.parentName)}
-                                helperText={formik.touched.parentName && formik.errors.parentName}
-                                required
+                                error={formik.touched.webLink && Boolean(formik.errors.webLink)}
+                                helperText={formik.touched.webLink && formik.errors.webLink}
+                                multiline
+                                rows={1}
                                 sx={{ mt: 2 }}
                             />
                             <TextField
                                 fullWidth
-                                label="Start Date"
-                                name="dateStart"
-                                type="date"
-                                value={formik.values.dateStart}
+                                label="Instruction"
+                                name="instruction"
+                                value={formik.values.instruction}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.touched.dateStart && Boolean(formik.errors.dateStart)}
-                                helperText={formik.touched.dateStart && formik.errors.dateStart}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                required
-                                sx={{ mt: 2 }}
-                            />
-                            <TextField
-                                fullWidth
-                                label="End Date"
-                                name="dateEnd"
-                                type="date"
-                                value={formik.values.dateEnd}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.dateEnd && Boolean(formik.errors.dateEnd)}
-                                helperText={formik.touched.dateEnd && formik.errors.dateEnd}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                required
+                                error={formik.touched.instruction && Boolean(formik.errors.instruction)}
+                                helperText={formik.touched.instruction && formik.errors.instruction}
+                                multiline
+                                rows={1}
                                 sx={{ mt: 2 }}
                             />
                             <TextField
@@ -281,6 +232,7 @@ const EditExperiencePage = () => {
                             >
                                 <MenuItem value="Work">Work</MenuItem>
                                 <MenuItem value="Education">Education</MenuItem>
+                                <MenuItem value="Personal">Personal</MenuItem>
                             </TextField>
                         </Grid>
                         <Grid item xs={12}>
@@ -304,7 +256,7 @@ const EditExperiencePage = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <ImageShowCarousel
-                                items={imageCollection}
+                                items={imageCollectionSrc}
                                 removeImageCollection={removeImageCollection}
                             />
                         </Grid>
@@ -324,7 +276,7 @@ const EditExperiencePage = () => {
                                     onBlur={formik.handleBlur}
                                 />
                             </Button>
-                            {formik.values.imageFileCollection.length > 0 && (
+                            {formik.values.imageCollectionFile.length > 0 && (
                                 <Box sx={{ mt: 1 }}>
                                     {Array.from(formik.values.imageFileCollection).map((file, index) => (
                                         <Typography key={index} variant="body2">
@@ -342,7 +294,7 @@ const EditExperiencePage = () => {
                     </Grid>
                     <Box sx={{ textAlign: 'center', mt: 4 }}>
                         <Button variant="contained" color="primary" type="submit" fullWidth>
-                            Update Experience
+                            Update Project
                         </Button>
                     </Box>
                 </form>
@@ -351,4 +303,4 @@ const EditExperiencePage = () => {
     );
 };
 
-export default EditExperiencePage;
+export default EditProjectPage;

@@ -8,6 +8,7 @@ import ImageShowCarousel from '../../Components/Common/ImageShowCarousel';
 import defaultImage from "../../Image/empty-default.jpg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CreateProject } from '../../Services/ProjectService';
+import MDEditor from '@uiw/react-md-editor';
 
 const CreateProjectPage = () => {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ const CreateProjectPage = () => {
             accomplishment: '',
             category: '',
             webLink: '',
+            instruction: '',
             imageCoverFile: null,
             imageCollectionFile: []
         },
@@ -30,17 +32,19 @@ const CreateProjectPage = () => {
             description: Yup.string().required('Description is required'),
             accomplishment: Yup.string().required('Accomplishment is required'),
             category: Yup.string().required('Category is required'),
+            webLink: Yup.string().required(),
+            instructino: Yup.string().required(),
             imageCoverFile: Yup.mixed().required('Image File is required'),
             imageCollectionFile: Yup.array()
         }),
         onSubmit: async (values) => {
-            console.log('test')
             const formData = new FormData();
             formData.append('title', values.title);
             formData.append('description', values.description);
             formData.append('accomplishment', values.accomplishment);
             formData.append('category', values.category);
             formData.append('webLink', values.webLink)
+            formData.append('instruction', values.instruction)
             formData.append('imageCoverFile', values.imageCoverFile);
             for (let i = 0; i < imageFileCollection.length; i++) {
                 let image = imageFileCollection[i];
@@ -119,6 +123,19 @@ const CreateProjectPage = () => {
                             />
                             <TextField
                                 fullWidth
+                                label="Instruction"
+                                name="instruction"
+                                value={formik.values.instruction}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.instruction && Boolean(formik.errors.instruction)}
+                                helperText={formik.touched.instruction && formik.errors.instruction}
+                                multiline
+                                rows={1}
+                                sx={{ mt: 2 }}
+                            />
+                            <TextField
+                                fullWidth
                                 label="Description"
                                 name="description"
                                 value={formik.values.description}
@@ -129,20 +146,6 @@ const CreateProjectPage = () => {
                                 required
                                 multiline
                                 rows={2}
-                                sx={{ mt: 2 }}
-                            />
-                            <TextField
-                                fullWidth
-                                label="Accomplishment"
-                                name="accomplishment"
-                                value={formik.values.accomplishment}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.accomplishment && Boolean(formik.errors.accomplishment)}
-                                helperText={formik.touched.accomplishment && formik.errors.accomplishment}
-                                required
-                                multiline
-                                rows={4}
                                 sx={{ mt: 2 }}
                             />
                         </Grid>
@@ -196,6 +199,19 @@ const CreateProjectPage = () => {
                                 <MenuItem value="Education">Education</MenuItem>
                                 <MenuItem value="Personal">Personal</MenuItem>
                             </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <div className="Md-Container">
+                                <MDEditor
+                                    value={formik.values.accomplishment}
+                                    onChange={(content) => {
+                                        formik.setFieldValue("accomplishment", content);
+                                    }}
+                                    textareaProps={{
+                                        placeholder: 'Please enter accomplishments',
+                                    }}
+                                />
+                            </div>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="h4" align="center" gutterBottom>

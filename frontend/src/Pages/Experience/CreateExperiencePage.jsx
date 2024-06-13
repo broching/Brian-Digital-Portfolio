@@ -8,6 +8,7 @@ import ImageShowCarousel from '../../Components/Common/ImageShowCarousel';
 import defaultImage from "../../Image/empty-default.jpg";
 import { CreateExperience } from '../../Services/ExperienceService';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MDEditor from '@uiw/react-md-editor';
 
 const CreateExperiencePage = () => {
     const navigate = useNavigate();
@@ -86,14 +87,14 @@ const CreateExperiencePage = () => {
     return (
         <Container maxWidth="md">
             <Box sx={{ mt: 4, mb: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-                <ArrowBackIcon
-                    fontSize="large"
-                    onClick={() => navigate("/experience/listing")}
-                    sx={{ cursor: 'pointer', mr: 2 }}
-                />
-                <Typography variant="h4">Add Your Experience</Typography>
-            </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+                    <ArrowBackIcon
+                        fontSize="large"
+                        onClick={() => navigate("/experience/listing")}
+                        sx={{ cursor: 'pointer', mr: 2 }}
+                    />
+                    <Typography variant="h4">Add Your Experience</Typography>
+                </Box>
                 <Divider sx={{ mb: 3 }} />
                 <form onSubmit={formik.handleSubmit}>
                     <Grid container spacing={2}>
@@ -219,20 +220,17 @@ const CreateExperiencePage = () => {
                             </TextField>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Accomplishment"
-                                name="accomplishment"
-                                value={formik.values.accomplishment}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.accomplishment && Boolean(formik.errors.accomplishment)}
-                                helperText={formik.touched.accomplishment && formik.errors.accomplishment}
-                                required
-                                multiline
-                                rows={4}
-                                sx={{ mt: 2 }}
-                            />
+                            <div className="Md-Container">
+                                <MDEditor
+                                    value={formik.values.accomplishment}
+                                    onChange={(content) => {
+                                        formik.setFieldValue("accomplishment", content);
+                                    }}
+                                    textareaProps={{
+                                        placeholder: 'Please enter accomplishments',
+                                    }}
+                                />
+                            </div>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="h4" align="center" gutterBottom>
