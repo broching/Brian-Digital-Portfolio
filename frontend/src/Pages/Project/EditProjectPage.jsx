@@ -70,7 +70,7 @@ const EditProjectPage = () => {
             description: Yup.string().required('Description is required'),
             accomplishment: Yup.string().required('Accomplishment is required'),
             webLink: Yup.string().required(),
-            instructino: Yup.string().required(),
+            instruction: Yup.string().required(),
             category: Yup.string().required('Category is required'),
         }),
         onSubmit: async (values) => {
