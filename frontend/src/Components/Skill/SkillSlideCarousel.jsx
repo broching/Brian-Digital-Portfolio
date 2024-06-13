@@ -1,16 +1,19 @@
-import { Container, Grid, Typography, } from '@mui/material'
-import React from 'react'
+import React from 'react';
+import { Container, Grid, Typography } from '@mui/material';
 import ExperienceCard from '../Experience/ExperienceCard';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import SkillCard from './SkillCard';
+import { CustomLeftArrow, CustomRightArrow } from '../Common/CarouselArrows';
 
 function SkillSlideCarousel(props) {
-    const { items } = props
+    const { items } = props;
     return (
         <Carousel
             additionalTransfrom={0}
             arrows
+            customLeftArrow={<CustomLeftArrow />}
+            customRightArrow={<CustomRightArrow />}
             autoPlay
             autoPlaySpeed={4000}
             centerMode={false}
@@ -71,7 +74,7 @@ function SkillSlideCarousel(props) {
                     imageSrc={item.imageSrc}
                 />))}
         </Carousel>
-    )
+    );
 }
 
-export default SkillSlideCarousel
+export default SkillSlideCarousel;

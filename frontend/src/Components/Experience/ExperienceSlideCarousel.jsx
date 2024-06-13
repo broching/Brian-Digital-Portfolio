@@ -3,6 +3,7 @@ import React from 'react'
 import ExperienceCard from './ExperienceCard';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { CustomLeftArrow, CustomRightArrow } from '../Common/CarouselArrows';
 
 function ExperienceSlideCarousel(props) {
     const { items } = props
@@ -10,6 +11,8 @@ function ExperienceSlideCarousel(props) {
         <Carousel
             additionalTransfrom={0}
             arrows
+            customLeftArrow={<CustomLeftArrow />}
+            customRightArrow={<CustomRightArrow />}
             autoPlay
             autoPlaySpeed={4000}
             centerMode={false}

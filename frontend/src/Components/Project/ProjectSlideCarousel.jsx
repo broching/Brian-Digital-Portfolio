@@ -3,6 +3,7 @@ import React from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import ProjectCard from './ProjectCard';
+import { CustomLeftArrow, CustomRightArrow } from '../Common/CarouselArrows';
 
 function ProjectSlideCarousel(props) {
     const { items } = props
@@ -10,6 +11,8 @@ function ProjectSlideCarousel(props) {
         <Carousel
             additionalTransfrom={0}
             arrows
+            customLeftArrow={<CustomLeftArrow />}
+            customRightArrow={<CustomRightArrow />}
             autoPlay
             autoPlaySpeed={4000}
             centerMode={false}
