@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Achievement.Request
 {
-    public class CreateAchievementRequestDto
+    public class UpdateAchievementRequestDto
     {
         [Required]
         [MaxLength(25, ErrorMessage = "Title Cannot Be over 25 characters")]
