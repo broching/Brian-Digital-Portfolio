@@ -23,6 +23,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("create")]
         public async Task<IActionResult> CreateProject([FromForm] CreateProjectRequestDto req)
         {
@@ -52,7 +53,6 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("get/{id:int}")]
         public async Task<IActionResult> GetProjectById([FromRoute] int id)
         {
@@ -65,6 +65,7 @@ namespace api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("update/{id:int}")]
         public async Task<IActionResult> UpdateProjecById([FromRoute] int id, [FromForm] UpdateProjectRequestDto req)
         {
@@ -115,6 +116,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("delete/{id:int}")]
         public async Task<IActionResult> DeleteById([FromRoute] int id)
         {
@@ -137,6 +139,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("deleteAll")]
         public async Task<IActionResult> DeleteAll()
         {
@@ -154,6 +157,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("deleteMultiple")]
         public async Task<IActionResult> DeleteMultipleById([FromBody] DeleteMultipleProjectRequestDto req)
         {

@@ -91,7 +91,6 @@ const EditProjectPage = () => {
                 let name = imageCollectionName[i];
                 formData.append('imageCollection', name);
             }
-            console.log(formData.getAll('imageCover'))
             try {
                 UpdateProject(id, formData, navigate);
             } catch (error) {

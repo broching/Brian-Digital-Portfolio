@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import defaultImage from "../../Image/empty-default.jpg";
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
+import HailIcon from '@mui/icons-material/Hail';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ArrowBack from '@mui/icons-material/ArrowBack';
@@ -52,7 +53,15 @@ const ViewProject = () => {
                             <b>{project.title}</b>
                         </Typography>
                         <Box display="flex" alignItems="center" sx={{ mt: 1 }} >
-                            {project.category === 'Work' ? <WorkIcon color="action" /> : <SchoolIcon color="action" />}
+                            {project.category === 'Work' && (
+                                <WorkIcon color="action" />
+                            )}
+                            {project.category === 'Education' && (
+                                <SchoolIcon color="action" />
+                            )}
+                            {project.category === 'Personal' && (
+                                <HailIcon color="action" />
+                            )}
                             <Typography variant="body1" sx={{ marginLeft: 1 }}>
                                 {project.category}
                             </Typography>

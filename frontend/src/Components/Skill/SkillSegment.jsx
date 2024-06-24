@@ -23,17 +23,17 @@ function SkillSegment({ skillList }) {
             }}
         >
             <Container maxWidth="xl">
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
-                    <StarsIcon color="primary" sx={{ fontSize: 50, mr: 2, mb: 2 }} />
-                    <Typography variant="h3" component="h1" gutterBottom align="center">
-                        My Skills
+                <Box>
+                    <Typography variant="h3" sx={{ mt: -1.5, mb: 1 }} gutterBottom>
+                        <StarsIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
+                        Skills
+                    </Typography>
+                    <Divider sx={{ backgroundColor: "#D5D5D5", width: "10%", minWidth: "200px" }} />
+                    <Typography variant="body1" sx={{ mt: 2, }} paragraph>
+                        Throughout my career, I have developed and honed multiple skills
                     </Typography>
                 </Box>
-                <Typography variant="h5" component="h1" gutterBottom align="center">
-                    Throughout the course of my life, I have picked up multiple skills.
-                </Typography>
-                <Divider />
-                <Grid container spacing={4} sx={{ mt: 3 }}>
+                <Grid container spacing={4} sx={{ mt: 1 }}>
                     <Grid item xs={12}>
                         <SkillSlideCarousel
                             items={skillList}

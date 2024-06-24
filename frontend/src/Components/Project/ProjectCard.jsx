@@ -2,6 +2,7 @@ import { Paper, Box, Typography, Divider, Button } from '@mui/material'
 import React from 'react'
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
+import HailIcon from '@mui/icons-material/Hail';
 import defaultImage from "../../Image/empty-default.jpg"
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,15 @@ function ProjectCard(props) {
                 <img src={item.imageCoverSrc || defaultImage} alt={item.title} style={{ maxWidth: '100%', maxHeight: 60, borderRadius: "7px" }} />
             </Box>
             <Box display="flex" alignItems="center" sx={{ mb: 1 }} >
-                {item.category === 'Work' ? <WorkIcon color="action" /> : <SchoolIcon color="action" />}
+                {item.category === 'Work' && (
+                    <WorkIcon color="action" />
+                )}
+                {item.category === 'Education' && (
+                    <SchoolIcon color="action" />
+                )}
+                {item.category === 'Personal' && (
+                    <HailIcon color="action" />
+                )}
                 <Typography variant="body1" sx={{ marginLeft: 1 }}>
                     {item.category}
                 </Typography>
