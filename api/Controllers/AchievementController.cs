@@ -57,7 +57,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Route("get/{id: int}")]
+        [Route("get/{id:int}")]
         public async Task<IActionResult> GetAchievement([FromRoute] int id)
         {
             var instance = await _achievementRepository.GetAsync(id);
