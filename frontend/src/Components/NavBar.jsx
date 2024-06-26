@@ -112,7 +112,7 @@ function NavBar() {
                                             },
                                             {
                                                 name: "List Achievement",
-                                                link: "achievment/listing",
+                                                link: "achievement/listing",
                                                 icon: <ListAltIcon />,
                                             },
                                         ]

@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import DeleteModal from '../../Components/Common/DeleteModal';
 import { DeleteMultipleProject, DeleteProject, GetAllProject } from '../../Services/ProjectService';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import { DeleteAchievement, DeleteMultipleAchievement, GetAllAchievement } from '../../Services/AchievementService';
 
 function AchievementListing() {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ function AchievementListing() {
 
     const loadItems = () => {
         try {
-            GetAllProject()
+            GetAllAchievement()
                 .then((res) => {
                     setItems(res.data);
                 })
@@ -27,7 +28,7 @@ function AchievementListing() {
                     toast.error('Internal server error occurred');
                 })
         } catch (error) {
-            console.error('Error fetching Projects:', error);
+            console.error('Error fetching Achievements:', error);
         }
     };
 
@@ -45,7 +46,7 @@ function AchievementListing() {
     };
 
     const handleDelete = async () => {
-        DeleteProject(selectedItem.id)
+        DeleteAchievement(selectedItem.id)
             .then((res) => {
                 if (res.status === 200) {
                     toast.success(`Deletion "${res.data.title}" successful`);
@@ -59,7 +60,7 @@ function AchievementListing() {
     };
 
     const handleDeleteMultiple = async () => {
-        DeleteMultipleProject(selectedItemList)
+        DeleteMultipleAchievement(selectedItemList)
             .then((res) => {
                 if (res.status === 200) {
                     toast.success(`Deletion of selected Items successful`);
@@ -74,7 +75,7 @@ function AchievementListing() {
 
     const handleDeleteMultipleConfirmation = () => {
         if (selectedItemList.length === 0) {
-            toast.warning("No Experiences Selected To Delete");
+            toast.warning("No Items Selected To Delete");
             return;
         }
         setMultipleOpen(true);
@@ -95,7 +96,7 @@ function AchievementListing() {
             width: 200,
             renderCell: (params) => (
                 <Toolbar>
-                    <Link component={RouterLink} to={`/project/edit/${params.row.id}`} color="primary" underline="none" sx={{ mr: 3 }}>
+                    <Link component={RouterLink} to={`/achievement/edit/${params.row.id}`} color="primary" underline="none" sx={{ mr: 3 }}>
                         <EditIcon />
                     </Link>
                     <Link component="button" color="error" underline="none" onClick={() => handleOpen(params.row)}>
@@ -114,7 +115,7 @@ function AchievementListing() {
             </Typography>
             <Button
                 variant="contained"
-                onClick={() => navigate("/project/create")}
+                onClick={() => navigate("/achievement/create")}
                 sx={{ mb: 3 }}
             >
                 Create

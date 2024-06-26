@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, Grid, Button, Divider, TextField, MenuItem, IconButton } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,19 +8,55 @@ import defaultImage from "../../Image/empty-default.jpg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
-import { CreateNewAchievement } from '../../Services/AchievementService';
+import { CreateNewAchievement, GetAchievementById, UpdateAchievement } from '../../Services/AchievementService';
 
-function CreateAchievement() {
+function EditAchievementPage() {
     const navigate = useNavigate();
     const [imagePreview, setImagePreview] = useState(null);
     const [attachmentFileCollection, setAttachmentFileCollection] = useState([]);
     const [attachment, setAttachment] = useState([]);
+    const [attachmentName , setAttachmentName] = useState([]);
+    const { id } = useParams();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await GetAchievementById(id);
+                formik.setFieldValue('title', res.data.title)
+                formik.setFieldValue('description', res.data.description)
+                formik.setFieldValue('category', res.data.category)
+                formik.setFieldValue('image', res.data.image)
+                formik.setFieldValue('imageSrc', res.data.imageSrc)
+                setImagePreview(res.data.imageSrc);
+                setAttachmentName(res.data.attachments);
+                setAttachment(res.data.attachments);
+                let tempArray = [];
+                for (let index = 0; index < res.data.attachmentSrc.length; index++) {
+                    const src = res.data.attachmentSrc[index];
+                    const name = res.data.attachments[index]
+                    const insert = {
+                        fileSrc: src,
+                        fileName: name,
+                    }
+                    tempArray.push(insert);
+                }
+                setAttachment(tempArray)
+
+
+            } catch (error) {
+                console.error('Error fetching Items:', error);
+            }
+        };
+        fetchData()
+    }, [id]);
 
     const formik = useFormik({
         initialValues: {
             title: '',
             description: '',
             category: '',
+            image: '',
+            attachment: [],
             imageFile: null,
             attachmentFile: []
         },
@@ -28,7 +64,6 @@ function CreateAchievement() {
             title: Yup.string().required('Title is required'),
             description: Yup.string().required('Description is required'),
             category: Yup.string().required('Category is required'),
-            imageFile: Yup.mixed().required('Image File is required'),
             attachmentFile: Yup.array()
         }),
         onSubmit: async (values) => {
@@ -36,16 +71,20 @@ function CreateAchievement() {
             formData.append('title', values.title);
             formData.append('description', values.description);
             formData.append('category', values.category);
+            formData.append('image', values.image)
             formData.append('imageFile', values.imageFile);
+            attachmentName.forEach(item => {
+                formData.append('attachments', item)
+            });
             for (let i = 0; i < attachmentFileCollection.length; i++) {
                 let file = attachmentFileCollection[i];
                 formData.append('attachmentFiles', file);
             }
             try {
-                CreateNewAchievement(formData, navigate)
+                UpdateAchievement(id, formData, navigate)
             } catch (error) {
                 console.log(error)
-                toast.error('Failed to create Achievement');
+                toast.error('Failed to Update Achievement');
             }
         }
     });
@@ -61,6 +100,7 @@ function CreateAchievement() {
     const removeAttachment = (file) => {
         setAttachmentFileCollection(prevList => prevList.filter(x => x.name !== file.fileName));
         setAttachment(prevList => prevList.filter(x => x.fileName !== file.fileName));
+        setAttachmentName(attachmentName.filter(x => x != file.fileName));
     }
 
     const handleAttachmentChange = (e) => {
@@ -83,7 +123,7 @@ function CreateAchievement() {
                         onClick={() => navigate("/achievement/listing")}
                         sx={{ cursor: 'pointer', mr: 2 }}
                     />
-                    <Typography variant="h4">Add Your Achievement</Typography>
+                    <Typography variant="h4">Update Your Achievement</Typography>
                 </Box>
                 <Divider sx={{ mb: 3 }} />
                 <form onSubmit={formik.handleSubmit}>
@@ -223,7 +263,7 @@ function CreateAchievement() {
                     </Grid>
                     <Box sx={{ textAlign: 'center', mt: 4 }}>
                         <Button variant="contained" color="primary" type="submit" fullWidth>
-                            Create Achievement
+                            Update Achievement
                         </Button>
                     </Box>
                 </form>
@@ -232,4 +272,4 @@ function CreateAchievement() {
     );
 };
 
-export default CreateAchievement;
+export default EditAchievementPage;

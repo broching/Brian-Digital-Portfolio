@@ -74,7 +74,7 @@ function ProjectListing() {
 
     const handleDeleteMultipleConfirmation = () => {
         if (selectedItemList.length === 0) {
-            toast.warning("No Experiences Selected To Delete");
+            toast.warning("No Items Selected To Delete");
             return;
         }
         setMultipleOpen(true);

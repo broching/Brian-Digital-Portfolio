@@ -8,7 +8,7 @@ async function CreateNewAchievement(formData, navigate) {
     return await axios.post(baseApi + "create", formData)
         .then((res) => {
             toast.success(`Achievement "${res.data.title}" has been added`);
-            navigate('/project/listing')
+            navigate('/achievement/listing')
         })
         .catch((err) => {
             console.log(err);
@@ -17,7 +17,7 @@ async function CreateNewAchievement(formData, navigate) {
 }
 
 
-async function GetAllProject() {
+async function GetAllAchievement() {
 
     return await axios.get(baseApi + "getAll")
         .then((res) => {
@@ -29,7 +29,7 @@ async function GetAllProject() {
         });
 }
 
-async function GetProjectById(id) {
+async function GetAchievementById(id) {
 
     return await axios.get(baseApi + `get/${id}`)
         .then((res) => {
@@ -41,12 +41,12 @@ async function GetProjectById(id) {
         });
 }
 
-async function UpdateProject(id, formData, navigate) {
+async function UpdateAchievement(id, formData, navigate) {
 
     return await axios.put(baseApi + `update/${id}`, formData)
         .then((res) => {
-            toast.success(`Project: ${res.data.title} has been updated`);
-            navigate('/project/listing')
+            toast.success(`Achievement: ${res.data.title} has been updated`);
+            navigate('/achievement/listing')
         })
         .catch((err) => {
             console.log(err);
@@ -54,7 +54,7 @@ async function UpdateProject(id, formData, navigate) {
         });
 }
 
-async function DeleteProject(id) {
+async function DeleteAchievement(id) {
 
     return await axios.delete(baseApi + `delete/${id}`)
         .then((res) => {
@@ -66,7 +66,7 @@ async function DeleteProject(id) {
         });
 }
 
-async function DeleteMultipleProject(idArray) {
+async function DeleteMultipleAchievement(idArray) {
 
     return await axios.post(baseApi + `deleteMultiple`, {DeleteList: idArray})
         .then((res) => {
@@ -80,9 +80,9 @@ async function DeleteMultipleProject(idArray) {
 
 export {
     CreateNewAchievement,
-    GetAllProject,
-    GetProjectById,
-    UpdateProject,
-    DeleteProject,
-    DeleteMultipleProject
+    GetAllAchievement,
+    GetAchievementById,
+    UpdateAchievement,
+    DeleteAchievement,
+    DeleteMultipleAchievement
 }; // Export the function

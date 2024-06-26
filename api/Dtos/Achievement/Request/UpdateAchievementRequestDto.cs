@@ -17,7 +17,7 @@ namespace api.Dtos.Achievement.Request
         [Required]
         public string Category { get; set; } = string.Empty;
         public string Image { get; set; } = string.Empty;
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public List<string> Attachments { get; set; } = new List<string> { };
         public List<IFormFile> AttachmentFiles { get; set; } = new List<IFormFile> { };
     }
