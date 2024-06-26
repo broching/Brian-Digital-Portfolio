@@ -37,17 +37,16 @@ function SkillsPage() {
                 backgroundColor: '#f5f5f5', // Light background for better contrast
             }}
         >
-            <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+            <Container maxWidth="xl" sx={{ textAlign: 'center' }}>
+                <Box sx={{ display: 'flex' }}>
                     <IconButton component={Link} to="/" sx={{ marginRight: 2 }}>
                         <ArrowBack sx={{ fontSize: "3rem" }} />
                     </IconButton>
-                    <StarsIcon color="primary" sx={{ fontSize: 50, mr: 2, mb: 1 }} />
                     <Typography variant="h3" component="h1" gutterBottom>
                         My Skills
                     </Typography>
                 </Box>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" align='left'>
                     Check out the skills I have developed through my career
                 </Typography>
                 <Typography variant="body1" sx={{ mb: 2, textAlign: "left", mt: 3 }}>

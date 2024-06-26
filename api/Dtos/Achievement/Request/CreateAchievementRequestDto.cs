@@ -9,7 +9,6 @@ namespace api.Dtos.Achievement.Request
     public class CreateAchievementRequestDto
     {
         [Required]
-        [MaxLength(25, ErrorMessage = "Title Cannot Be over 25 characters")]
         public string Title { get; set; } = string.Empty;
         [Required]
         [MaxLength(2000, ErrorMessage = "Description Cannot Be over 2000 characters")]

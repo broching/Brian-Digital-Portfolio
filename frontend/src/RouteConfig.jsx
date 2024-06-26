@@ -19,6 +19,7 @@ import EditProjectPage from './Pages/Project/EditProjectPage'
 import CreateAchievement from './Pages/Achievement/CreateAchievement'
 import AchievementListing from './Pages/Achievement/AcheivementListing'
 import EditAchievementPage from './Pages/Achievement/EditAchievementPage'
+import ViewAchievement from './Pages/Achievement/ViewAchievement'
 
 
 const router = createBrowserRouter([
@@ -143,6 +144,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <EditAchievementPage />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "achievement/view/:id",
+        element: (
+          <ProtectedRoute>
+            <ViewAchievement />
           </ProtectedRoute>
         )
       },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Box, Tabs, Tab, Divider } from '@mui/material';
+import { Container, Typography, Box, Tabs, Tab, Divider, Grid } from '@mui/material';
 import ProjectSlideCarousel from './ProjectSlideCarousel';
 import { GetAllProject } from '../../Services/ProjectService';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
@@ -30,31 +30,38 @@ const ProjectSegment = () => {
     return (
         <Box>
             <Container maxWidth="xl" sx={{ marginTop: 6 }}>
-                <Box sx={{ display: "flex", justifyContent:"space-between" }}>
-                    <Box>
-                        <Typography variant="h3" sx={{ mt: -1.5, mb: 1 }} gutterBottom>
-                            <AccountTreeIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
-                            Projects
-                        </Typography>
-                        <Divider sx={{ backgroundColor: "#D5D5D5", width: "15%", minWidth: "200px" }} />
-                        <Typography variant="body1" sx={{ mt: 2 }} paragraph>
-                            Check out the projects that helped me develop my skillset and confidence as a developer.
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <Tabs
-                            value={selectedCategory}
-                            onChange={handleTabChange}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            centered
-                            sx={{ marginBottom: 3 }}
-                        >
-                            <Tab label="Work" value="work" sx={{ fontSize: "1.3rem" }} />
-                            <Tab label="Education" value="education" sx={{ fontSize: "1.3rem" }} />
-                            <Tab label="Personal" value="personal" sx={{ fontSize: "1.3rem" }} />
-                        </Tabs>
-                    </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} md={5}>
+                            <Box>
+                                <Typography variant="h3" sx={{ mt: -1.5, mb: 1 }} gutterBottom>
+                                    <AccountTreeIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
+                                    Projects
+                                </Typography>
+                                <Divider sx={{ backgroundColor: "#D5D5D5", width: "15%", minWidth: "200px" }} />
+                                <Typography variant="body1" sx={{ mt: 2 }} paragraph>
+                                    Check out the projects that helped me develop my skillset and confidence as a developer.
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={7}>
+                            <Box>
+                                <Tabs
+                                    value={selectedCategory}
+                                    onChange={handleTabChange}
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    centered
+                                    variant='fullWidth'
+                                    sx={{ marginBottom: 3 }}
+                                >
+                                    <Tab label="Work" value="work" sx={{ fontSize: "1.1rem" }} />
+                                    <Tab label="Education" value="education" sx={{ fontSize: "1.1rem" }} />
+                                    <Tab label="Personal" value="personal" sx={{ fontSize: "1.1rem" }} />
+                                </Tabs>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Box>
 
                 <Box sx={{ marginTop: 4 }}>

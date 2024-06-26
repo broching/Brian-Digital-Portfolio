@@ -1,0 +1,32 @@
+Updates:
+1- Reflection is changed from weekly to fortnightly read by IS and SIM
+2- No need to create poster and submit poster
+3- Student Internship Package will be sent via email (No blackboard or Bright Space)
+
+Updated by Leow Zhen Zhen - 6 June 2023
+====================================================
+
+1. Student Internship Guide.pdf
+ - Read this to know what's going on for internship
+ - "Annex 4: Student Performance Grading Form" to be printed at the end of internship for Industry Supervisor(IS) to grade
+
+2. Student Internship Report.docx
+- A template for you to prepare your final report to be submitted to School Internship Mentor for grading at the end of internship.
+
+3. Student_ITP_eLog.pdf
+- For doing daily reflection. 
+- Need to add in IS contact so that 
+  + IS can login to grade and comment
+  + SIM will also login to check your reflection and may add in comment.
+  + These reflections are one of the items to be evaluated during grading.
+
+4. NYP Pre Internship Guide_Final_Potrait.pdf
+- This guide contains links to eLearning content that support your internship journey.
+
+Deliverables at the end of internship to be submitted to SIM
+- Performance Grading Form with IS's grading and signature
+  (See 1. Student Internship Guide.pdf)
+- Internship report(to be vetted by IS to remove confidential info)
+  (See 2. Student Internship Report.docx)
+- Company Feedback Form
+  (Request IS to submit via https://for.edu.sg/nypsitindustryfeedback)

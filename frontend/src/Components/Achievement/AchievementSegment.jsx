@@ -1,89 +1,139 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Box, Grid, Button, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
-import { Link } from 'react-router-dom';
-import StarsIcon from '@mui/icons-material/Stars';
-import Pagination from '@mui/material/Pagination';
-import SkillCard from '../Skill/SkillCard';
+import React, { useEffect, useState } from 'react';
+import { Container, Typography, Grid, Paper, Box, Tabs, Tab, Divider, Button } from '@mui/material';
+import { GetAllExperience } from '../../Services/ExperienceService';
+import defaultImage from "../../Image/empty-default.jpg";
+import ExperienceSlideCarousel from './AchievementSlideCarousel';
+import workingDesktop from "../../Image/experiencePortrait4.png"
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import presentation from "../../Image/outstandingPresentation2.jpg"
+import { GetAllAchievement } from '../../Services/AchievementService';
+import AchievementSlideCarousel from './AchievementSlideCarousel';
 
-function AchievementSegment({ skillList }) {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const [page, setPage] = useState(1);
-    const [skillsPerPage, setSkillsPerPage] = useState(3);
+const AchievementSegment = () => {
+    const [items, setItems] = useState([]);
+    const [educationItems, setEducationItems] = useState([]);
+    const [workItems, setWorkItems] = useState([]);
+    const [personalItems, setPersonalItems] = useState([]);
+    const [selectedTab, setSelectedTab] = useState(0);
 
     useEffect(() => {
-        if (isSmallScreen)
-            setSkillsPerPage(2);
-        else
-            setSkillsPerPage(3);
+        const fetchExperiences = async () => {
+            try {
+                const response = await GetAllAchievement();
+                setItems(response.data);
+            } catch (error) {
+                console.error('Failed to fetch items', error);
+            }
+        };
+        fetchExperiences();
+    }, []);
 
-    }, [isSmallScreen]);
+    useEffect(() => {
+        if (items.length > 0) {
+            setEducationItems(items.filter(x => x.category === 'Education'));
+            setWorkItems(items.filter(x => x.category === 'Work'));
+            setPersonalItems(items.filter(x => x.category === 'Personal'));
+        }
+    }, [items]);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+    const handleTabChange = (event, newValue) => {
+        setSelectedTab(newValue);
     };
 
-    const startIndex = (page - 1) * skillsPerPage;
-    const endIndex = startIndex + skillsPerPage;
-    const paginatedSkills = skillList.slice(startIndex, endIndex);
+    const renderTabContent = () => {
+        if (selectedTab === 0) {
+            return (
+                <>
+                    {workItems.length > 0 ? (
+                        <AchievementSlideCarousel
+                            items={workItems}
+                        />
+                    ) : (
+                        <Typography variant="body1" color="textSecondary" sx={{ padding: 2 }}>
+                            No Work Achievements Available
+                        </Typography>
+                    )}
+                </>
+            );
+        } else if (selectedTab === 1) {
+            return (
+                <>
+                    {educationItems.length > 0 ? (
+                        <AchievementSlideCarousel
+                            items={educationItems}
+                        />
+                    ) : (
+                        <Typography variant="body1" color="textSecondary" sx={{ padding: 2 }}>
+                            No Education Achievements Available
+                        </Typography>
+                    )}
+                </>
+            );
+        }
+        else if (selectedTab === 2) {
+            return (
+                <>
+                    {personalItems.length > 0 ? (
+                        <AchievementSlideCarousel
+                            items={personalItems}
+                        />
+                    ) : (
+                        <Typography variant="body1" color="textSecondary" sx={{ padding: 2 }}>
+                            No Personal Achievements Available
+                        </Typography>
+                    )}
+                </>
+            );
+        }
+    };
 
     return (
         <Box
             sx={{
-                minHeight: '60vh',
-                paddingTop: 4,
-                paddingBottom: 4,
-                color: 'black',
-                display: 'flex',
-                backgroundColor:"#f5f5f5",
-                justifyContent: 'center',
-            }}
-        >
-            <Container>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
-                    <StarsIcon color="primary" sx={{ fontSize: 50, mr: 2, mb: 2 }} />
-                    <Typography variant="h3" component="h1" gutterBottom align="center">
-                        My Achievements
-                    </Typography>
-                </Box>
-                <Typography variant="h5" component="h1" gutterBottom align="center">
-                    Throughout the course of my life, I have picked up multiple skills.
-                </Typography>
-                <Divider />
-                <Grid container spacing={4} sx={{ mt: 3 }}>
-                    {paginatedSkills.map((skill) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} key={skill.id}>
-                            <SkillCard
-                                title={skill.title}
-                                description={skill.description}
-                                imageSrc={skill.imageSrc}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-                <Box sx={{ textAlign: 'center', marginTop: 2 }}>
-                    <Pagination
-                        count={Math.ceil(skillList.length / skillsPerPage)}
-                        page={page}
-                        onChange={handleChangePage}
-                        color="primary"
-                    />
-                </Box>
-                <Box sx={{ textAlign: 'center', marginTop: 2 }}>
-                    <Button
-                        component={Link}
-                        variant="contained"
-                        color="primary"
-                        to="/skills"
-                        startIcon={<InfoIcon />}
+                backgroundColor: "#FAFAFB"
+            }}>
+            <Container maxWidth="xl" sx={{ marginTop: 4 }}>
+                <Grid container spacing={4}>
+                    <Grid
+                        item xs={12} sm={12} md={5} lg={5} xl={5}
+                        sx={{
+                            backgroundImage: `url(${presentation})`,
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            minHeight: "550px",
+                            maxHeight: "600px"
+
+                        }}
                     >
-                        View All Skills
-                    </Button>
-                </Box>
+                        <Typography variant="h3" sx={{ mt: -1.5, mb: 1 }} gutterBottom>
+                            <EmojiEventsIcon color="primary" sx={{ fontSize: 40, marginRight: 1 }} />
+                            Achievements
+                        </Typography>
+                        <Divider sx={{ backgroundColor: "#D5D5D5", width: "80%" }} />
+                        <Typography variant="body1" sx={{ mt: 2, }} paragraph>
+                            I have completed many courses and certificates, adding to my achievements
+                        </Typography>
+                        <Typography variant="body1" paragraph>
+                            These achievements are pivitol to my success and confidence as a developer.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={7} lg={7} xl={7}>
+
+                        <Tabs value={selectedTab} onChange={handleTabChange} variant="fullWidth">
+                            <Tab label="Work" sx={{ fontSize: "1.1rem" }} />
+                            <Tab label="Education" sx={{ fontSize: "1.1rem" }} />
+                            <Tab label="Personal" sx={{ fontSize: "1.1rem" }} />
+                        </Tabs>
+
+                        <Box sx={{ marginTop: 4 }}>
+                            {renderTabContent()}
+                        </Box>
+                    </Grid>
+                </Grid>
             </Container>
         </Box>
     );
-}
+};
 
 export default AchievementSegment;
