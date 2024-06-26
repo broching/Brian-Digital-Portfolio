@@ -3,9 +3,8 @@ import { Container, Typography, Grid, Paper, Box, Tabs, Tab, Divider, Button } f
 import { GetAllExperience } from '../../Services/ExperienceService';
 import defaultImage from "../../Image/empty-default.jpg";
 import ExperienceSlideCarousel from './AchievementSlideCarousel';
-import workingDesktop from "../../Image/experiencePortrait4.png"
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import presentation from "../../Image/outstandingPresentation2.jpg"
+import presentation from "../../Image/outstandingPresentation4.png"
 import { GetAllAchievement } from '../../Services/AchievementService';
 import AchievementSlideCarousel from './AchievementSlideCarousel';
 

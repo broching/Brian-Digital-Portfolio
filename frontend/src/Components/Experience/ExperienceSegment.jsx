@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Paper, Box, Tabs, Tab, Divider, Button } from '@mui/material';
 import { GetAllExperience } from '../../Services/ExperienceService';
-import defaultImage from "../../Image/empty-default.jpg";
 import ExperienceSlideCarousel from './ExperienceSlideCarousel';
-import workingDesktop from "../../Image/experiencePortrait4.png"
+import workingDesktop from "../../Image/experiencePortrait7.jpg"
 import WorkIcon from '@mui/icons-material/Work';
 
 const ExperienceSegment = () => {

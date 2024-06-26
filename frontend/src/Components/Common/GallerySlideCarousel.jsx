@@ -62,7 +62,7 @@ function GallerySlideCarousel(props) {
             slidesToSlide={1}
             swipeable
         >
-            {items.map(item => (<ImageCard imageSrc={item} />))}
+            {items.map((item, index) => (<ImageCard imageSrc={item} key={index} />))}
         </Carousel>
     )
 }
