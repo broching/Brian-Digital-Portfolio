@@ -39,7 +39,7 @@ function CreateAchievement() {
             formData.append('imageFile', values.imageFile);
             for (let i = 0; i < attachmentFileCollection.length; i++) {
                 let file = attachmentFileCollection[i];
-                formData.append('attachmentFile', file);
+                formData.append('attachmentFiles', file);
             }
             try {
                 CreateNewAchievement(formData, navigate)
